@@ -31,7 +31,7 @@ process EditSummaryFileHappy {
     
     stub:
     """
-    touch ${meta.truth}_${meta.query}_INDELL_PASS.summary.csv
+    touch ${meta.truth}_${meta.query}_INDEL_PASS.summary.csv
     touch ${meta.truth}_${meta.query}_INDEL_ALL.summary.csv
     touch ${meta.truth}_${meta.query}_SNP_PASS.summary.csv
     touch ${meta.truth}_${meta.query}_SNP_ALL.summary.csv
