@@ -3,13 +3,16 @@ process EditSummaryFileHappy {
     label 'process_low'
 
     input:
-        tuple val(meta), path(summary_csv)
+    tuple val(meta), path(summary_csv)
 
     output:
-        path("*_INDEL_PASS.summary.csv"), emit: indel_pass_csv
-        path("*_INDEL_ALL.summary.csv"), emit: indel_all_csv
-        path("*_SNP_PASS.summary.csv"), emit: snp_pass_csv
-        path("*_SNP_ALL.summary.csv"), emit: snp_all_csv
+    path("*_INDEL_PASS.summary.csv"), emit: indel_pass_csv
+    path("*_INDEL_ALL.summary.csv"), emit: indel_all_csv
+    path("*_SNP_PASS.summary.csv"), emit: snp_pass_csv
+    path("*_SNP_ALL.summary.csv"), emit: snp_all_csv
+
+    when:
+    task.ext.when == null || task.ext.when
 
     script:
     """

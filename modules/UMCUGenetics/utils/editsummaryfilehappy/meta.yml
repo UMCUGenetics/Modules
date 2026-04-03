@@ -3,12 +3,17 @@ description: Reformat the happy summary file for GIABEval
 keywords:
   - giab
   - GIABEval
+  - utils
+
+tools:
+  - bash:
+      description: |
+        Util process, using only bash
 input:
   - - meta:
-      type: map
-      description: |
-        Groovy Map containing sample information
-        it should have the keys: [id: '', 'query', 'truth']
+        type: map
+        description: |
+          Groovy Map containing sample information it should have the keys [id: '', 'query', 'truth']
     - summary_csv:
         type: file
         description: summary output csv from happy
@@ -29,4 +34,8 @@ output:
     - "*_SNP_ALL.summary.csv":
         type: file
         description: "All SNPs"  
-        
+
+authors:
+  - "@ellendejong"
+  - "@melferink"
+
