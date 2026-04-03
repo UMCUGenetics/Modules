@@ -42,10 +42,8 @@ jobs:
   # https://github.com/nf-core/tools/pull/3141
   nf-core-changes:
     name: nf-core-changes
-    runs-on:
-      - runs-on=${{ github.run_id }}-nf-core-changes
-      - runner=4cpu-linux-x64
-      - image=ubuntu22-full-x64
+    runs-on: ubuntu-latest
+    
     outputs:
       # https://github.com/dorny/paths-filter?tab=readme-ov-file#custom-processing-of-changed-files
       modules: ${{ steps.filter.outputs.modules }}
@@ -67,9 +65,9 @@ jobs:
         with:
           filters: |
             modules:
-              - added|modified: 'modules/nf-core/**'
+              - added|modified: 'modules/UMCUGenetics/**'
             subworkflows:
-              - added|modified: 'subworkflows/nf-core/**'
+              - added|modified: 'subworkflows/UMCUGenetics/**'
           token: ""
           list-files: "json"
 
@@ -81,7 +79,7 @@ jobs:
             return [...new Set(${{ steps.filter.outputs.modules_files }}
               .filter(x => x.endsWith('main.nf') || x.endsWith('.nf.test.snap'))
               .map(path => path
-                .replace('modules/nf-core/', '')
+                .replace('modules/UMCUGenetics/', '')
                 .replace(/\/(main\.nf|tests\/.*)$/, '')
               )
             )];
@@ -93,7 +91,7 @@ jobs:
             return [...new Set(${{ steps.filter.outputs.subworkflows_files }}
               .filter(x => x.endsWith('main.nf') || x.endsWith('.nf.test.snap'))
               .map(path => path
-                .replace('subworkflows/nf-core/', '')
+                .replace('subworkflows/UMCUGenetics/', '')
                 .replace(/\/(main\.nf|tests\/.*)$/, '')
               )
             )];
@@ -106,10 +104,7 @@ jobs:
           echo ${{ steps.subworkflow_names.outputs.result }}
 
   nf-core-lint-modules:
-    runs-on:
-      - runs-on=${{ github.run_id }}-nf-core-lint-modules
-      - runner=4cpu-linux-x64
-      - image=ubuntu22-full-x64
+    runs-on: ubuntu-latest
     name: nf-core lint modules
     needs: nf-core-changes
     if: ${{ needs.nf-core-changes.outputs.modules_files != '[]' }}
@@ -154,10 +149,7 @@ jobs:
         run: nf-core modules lint ${{ matrix.module }}
 
   nf-core-lint-subworkflows:
-    runs-on:
-      - runs-on=${{ github.run_id }}-nf-core-lint-subworkflows
-      - runner=4cpu-linux-x64
-      - image=ubuntu22-full-x64
+    runs-on: ubuntu-latest
     name: nf-core lint subworkflows
     needs: nf-core-changes
     if: ${{ needs.nf-core-changes.outputs.subworkflows_files != '[]' }}
@@ -186,10 +178,7 @@ jobs:
         run: nf-core subworkflows lint ${{ matrix.subworkflow }}
 
   confirm-pass-lint:
-    runs-on:
-      - runs-on=${{ github.run_id }}-confirm-pass-lint
-      - runner=2cpu-linux-x64
-      - image=ubuntu22-full-x64
+    runs-on: ubuntu-latest
     needs: [nf-core-lint-modules, nf-core-lint-subworkflows]
     if: always()
     steps:
