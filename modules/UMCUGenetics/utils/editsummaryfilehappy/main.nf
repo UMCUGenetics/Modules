@@ -1,10 +1,8 @@
 process EditSummaryFileHappy {
-    tag "$meta.id"
-    label 'EditSummaryFileHappy'
-    shell = ['/bin/bash', '-euo', 'pipefail']
+    tag "${meta.id}"
+    label 'process_low'
 
     input:
-        // meta should have the keys 'id', 'query' and 'truth'
         tuple val(meta), path(summary_csv)
 
     output:
@@ -14,7 +12,7 @@ process EditSummaryFileHappy {
         path("*_SNP_ALL.summary.csv"), emit: snp_all_csv
 
     script:
-        """
+    """
         # Add samplenames as columns (header and row values) at start of line
         sed '1s/^/samples,sample_truth,sample_query,/; 2,\$s/^/${meta.truth}_${meta.query},${meta.truth},${meta.query},/' ${summary_csv} > ${summary_csv}.tmp
         
@@ -26,5 +24,15 @@ process EditSummaryFileHappy {
         
         # Remove tmp files
         rm ${summary_csv}.tmp     
-        """
+    """
+    
+    stub:
+    """
+    touch ${meta.truth}_${meta.query}_INDELL_PASS.summary.csv
+    touch ${meta.truth}_${meta.query}_INDEL_ALL.summary.csv
+    touch ${meta.truth}_${meta.query}_SNP_PASS.summary.csv
+    touch ${meta.truth}_${meta.query}_SNP_ALL.summary.csv
+    """
+    
+    
 }

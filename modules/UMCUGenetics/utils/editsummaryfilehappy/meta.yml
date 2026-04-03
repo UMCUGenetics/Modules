@@ -1,0 +1,32 @@
+name: editsummaryfilehappy
+description: Reformat the happy summary file for GIABEval
+keywords:
+  - giab
+  - GIABEval
+input:
+  - - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        it should have the keys: [id: '', 'query', 'truth']
+    - summary_csv:
+        type: file
+        description: summary output csv from happy
+output:
+  indel_pass_csv:
+    - "*_INDEL_PASS.summary.csv":
+        type: file
+        description: "INDELs that pass the criteria"
+  indel_all_csv:
+    - "*_INDEL_ALL.summary.csv":
+        type: file
+        description: "All indels"
+  snp_pass_csv:
+    - "*_SNP_PASS.summary.csv":
+        type: file
+        description: "SNPs that pass the criteria"
+  snp_all_csv:
+    - "*_SNP_ALL.summary.csv":
+        type: file
+        description: "All SNPs"  
+        
