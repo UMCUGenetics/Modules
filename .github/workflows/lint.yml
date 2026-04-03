@@ -1,15 +1,16 @@
 name: Run Linting
 on:
   pull_request:
-  workflow_dispatch:
-    inputs:
-      runners:
-        description: "Runners to test on"
-        type: choice
-        options:
-          - "ubuntu-latest"
-          - "self-hosted"
-        default: "self-hosted"
+    branches: [main, develop, release/*]
+  # workflow_dispatch:
+  #   inputs:
+  #     runners:
+  #       description: "Runners to test on"
+  #       type: choice
+  #       options:
+  #         - "ubuntu-latest"
+  #         - "self-hosted"
+  #       default: "self-hosted"
 
 # Cancel if a newer run is started
 concurrency:
