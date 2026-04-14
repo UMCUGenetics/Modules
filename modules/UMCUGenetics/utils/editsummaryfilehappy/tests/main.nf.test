@@ -1,0 +1,26 @@
+nextflow_process {
+    name "Test UTILS_EDITSUMMARYFILEHAPPY"
+    script "../main.nf"
+    process "UTILS_EDITSUMMARYFILEHAPPY"
+
+    tag "modules"
+    tag "modules_umcugenetics"
+    tag "happy"
+
+    test("stub") {
+        options "-stub"
+        when{
+            process{
+                """
+                input[0] = [
+                    [id: 'test', truth: 'truthsample', query: "querysample"], // meta map
+                    file("demo_summary.csv")
+                ]
+                """
+            }
+        }
+        then {
+            assert process.success
+        }
+    }
+}
