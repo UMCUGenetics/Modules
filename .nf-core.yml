@@ -1,2 +1,4 @@
 org_path: UMCUGenetics
 repository_type: modules
+lint:
+  environment_yml
