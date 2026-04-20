@@ -1,4 +1,11 @@
 org_path: UMCUGenetics
 repository_type: modules
 lint:
-  environment_yml
+  main_nf:
+    - when_exist
+  meta_yml: false
+  environment_yml: False
+  module_changes: False
+  module_deprecations: False
+  module_version: False
+  module_patch: False
