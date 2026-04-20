@@ -1,5 +1,5 @@
 nextflow_process {
-    name "Test Process PGScatalog-match"
+    name "Test Process pgscatalog/match"
     script "../main.nf"
     process "PGSCATALOG_MATCH"
 
