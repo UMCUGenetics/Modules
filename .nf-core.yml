@@ -3,6 +3,10 @@ repository_type: modules
 lint:
   main_nf:
     - when_exist
+    - test_main_tags
+    - container_links
+  module_tests:
+    - test_main_tags
   meta_yml: false
   environment_yml: False
   module_changes: False
