@@ -13,6 +13,7 @@ nextflow_process {
         options "-stub"
         when {
             process {
+                """
                 input[0] = [
                     [id: "sampleA"],
                     file("eigenvectors.csv")
@@ -21,14 +22,14 @@ nextflow_process {
                     [id: "reference"],
                     file("ref_metadata.csv")
                 ]
+                """
             }
         }
         then {
             assertAll(
-                { assert process.success }
+                { assert process.success },
+                { snapshot( process.out.knn_tsv).match() }
             )
         }
     }
-
-
 }

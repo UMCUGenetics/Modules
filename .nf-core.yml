@@ -8,8 +8,3 @@ lint:
   module_tests:
     - test_main_tags
   meta_yml: false
-  environment_yml: False
-  module_changes: False
-  module_deprecations: False
-  module_version: False
-  module_patch: False

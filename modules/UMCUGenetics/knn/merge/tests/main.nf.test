@@ -13,10 +13,12 @@ nextflow_process {
         options "-stub"
         when {
             process {
+                """
                 input[0] = [
-                    file("sampleA.csv")
+                    file("sampleA.csv"),
                     file("sampleB.csv")
                 ]
+                """
             }
         }
         then {
