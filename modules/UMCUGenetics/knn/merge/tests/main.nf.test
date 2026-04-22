@@ -1,0 +1,32 @@
+nextflow_process {
+    name "Test Proces knn/merge"
+    script "../main.nf"
+    process "ANCESTRY_KNN_MERGE"
+
+    tag "modules"
+    tag "modules/UMCUGenetics"
+    tag "knn"
+    tag "ancestry"
+    tag "prs"
+
+    test("Test KNN merge") {
+        options "-stub"
+        when {
+            process {
+                """
+                input[0] = [
+                    file("sampleA.csv"),
+                    file("sampleB.csv")
+                ]
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert process.success }
+            )
+        }
+    }
+
+
+}

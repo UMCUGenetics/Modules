@@ -1,0 +1,35 @@
+nextflow_process {
+    name "Test Proces knn/calc"
+    script "../main.nf"
+    process "ANCESTRY_KNN"
+
+    tag "modules"
+    tag "modules/UMCUGenetics"
+    tag "knn"
+    tag "ancestry"
+    tag "prs"
+
+    test("Test KNN") {
+        options "-stub"
+        when {
+            process {
+                """
+                input[0] = [
+                    [id: "sampleA"],
+                    file("eigenvectors.csv")
+                ]
+                input[1] = [
+                    [id: "reference"],
+                    file("ref_metadata.csv")
+                ]
+                """
+            }
+        }
+        then {
+            assertAll(
+                { assert process.success },
+                { snapshot( process.out.knn_tsv).match() }
+            )
+        }
+    }
+}
