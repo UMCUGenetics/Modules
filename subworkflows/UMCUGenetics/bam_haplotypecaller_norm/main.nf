@@ -1,5 +1,5 @@
 include { GATK4_HAPLOTYPECALLERALLELES } from '../../../modules/UMCUGenetics/gatk4/haplotypecalleralleles/main'
-include { BCFTOOLS_NORM         } from '../../../modules/nf-core/bcftools/norm/main'
+include { BCFTOOLS_NORM                } from '../../../modules/nf-core/bcftools/norm/main'
 
 workflow BAM_HAPLOTYPECALLER_NORM {
     take:
@@ -48,12 +48,7 @@ workflow BAM_HAPLOTYPECALLER_NORM {
         ch_genome_fasta
     )
 
-    // Collate software versions
-    ch_versions = Channel.empty()
-    ch_versions = ch_versions.mix(GATK4_HAPLOTYPECALLERALLELES.out.versions)
-
     emit:
     vcf         = BCFTOOLS_NORM.out.vcf
     tbi         = BCFTOOLS_NORM.out.index
-    ch_versions = ch_versions
 }
