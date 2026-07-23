@@ -3,12 +3,20 @@
         "content": [
             "test_bam.vcf.gz",
             "test_bam.vcf.gz.tbi",
-            null
+            {
+                "versions_gatk4": [
+                    [
+                        "GATK4_HAPLOTYPECALLERALLELES",
+                        "gatk4",
+                        "4.6.1.0"
+                    ]
+                ]
+            }
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-07-23T16:53:09.254638"
+        "timestamp": "2026-07-23T18:58:51.584571"
     }
 }
