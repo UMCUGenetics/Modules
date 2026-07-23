@@ -3,14 +3,12 @@
         "content": [
             "test_bam.vcf.gz",
             "test_bam.vcf.gz.tbi",
-            [
-                "versions.yml:md5,9a66eb43626c80c12a5ed2c306df58f6"
-            ]
+            null
         ],
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-07-20T16:38:55.731401"
+        "timestamp": "2026-07-23T16:53:09.254638"
     }
 }

@@ -8,7 +8,7 @@
                 "versions_prs_utils_merge_prs_mqc": [
                     [
                         "PRSUTILS_MERGEPRSMQC",
-                        "prs_utils_merge_prs_mqc",
+                        "prsutils",
                         "1.0.0"
                     ]
                 ]
@@ -18,6 +18,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-07-20T16:43:01.879923"
+        "timestamp": "2026-07-23T16:54:27.848942"
     }
 }

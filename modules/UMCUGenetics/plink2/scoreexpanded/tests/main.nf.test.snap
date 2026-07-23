@@ -12,7 +12,11 @@
                     ]
                 ],
                 "1": [
-                    "versions.yml:md5,c1c911a9b5cc9dbf58afdc3f5d07e833"
+                    [
+                        "PLINK2_SCOREEXPANDED",
+                        "plink2",
+                        "2.00a2.3LM"
+                    ]
                 ],
                 "score": [
                     [
@@ -23,8 +27,12 @@
                         "test.sscore:md5,f8d2d19abe47bc49661fe7d845620eec"
                     ]
                 ],
-                "versions": [
-                    "versions.yml:md5,c1c911a9b5cc9dbf58afdc3f5d07e833"
+                "versions_plink2": [
+                    [
+                        "PLINK2_SCOREEXPANDED",
+                        "plink2",
+                        "2.00a2.3LM"
+                    ]
                 ]
             }
         ],
@@ -32,18 +40,14 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-07-20T16:39:19.283837"
+        "timestamp": "2026-07-23T16:53:48.612547"
     },
     "versions": {
-        "content": [
-            [
-                "versions.yml:md5,c1c911a9b5cc9dbf58afdc3f5d07e833"
-            ]
-        ],
+        "content": null,
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-07-20T16:39:19.261177"
+        "timestamp": "2026-07-23T16:53:48.594976"
     }
 }

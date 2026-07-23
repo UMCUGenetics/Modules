@@ -1,15 +1,11 @@
 {
     "versions": {
-        "content": [
-            [
-                "versions.yml:md5,adcd5ad55ba2d1d93fd674b79fe70a86"
-            ]
-        ],
+        "content": null,
         "meta": {
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-07-20T16:39:23.403734"
+        "timestamp": "2026-07-23T16:53:53.512759"
     },
     "plink2_vcf": {
         "content": [
@@ -87,7 +83,11 @@
                     ]
                 ],
                 "8": [
-                    "versions.yml:md5,adcd5ad55ba2d1d93fd674b79fe70a86"
+                    [
+                        "PLINK2_VCFEXPANDED",
+                        "plink2",
+                        "2.00a2.3LM"
+                    ]
                 ],
                 "afreq": [
                     [
@@ -143,8 +143,12 @@
                         "test.pvar.zst:md5,f9281e259841682b800087d319cfa50e"
                     ]
                 ],
-                "versions": [
-                    "versions.yml:md5,adcd5ad55ba2d1d93fd674b79fe70a86"
+                "versions_plink2": [
+                    [
+                        "PLINK2_VCFEXPANDED",
+                        "plink2",
+                        "2.00a2.3LM"
+                    ]
                 ],
                 "vmiss": [
                     [
@@ -170,6 +174,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-07-20T16:39:23.432706"
+        "timestamp": "2026-07-23T16:53:53.546286"
     }
 }

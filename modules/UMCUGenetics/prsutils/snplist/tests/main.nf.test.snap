@@ -13,7 +13,7 @@
                 "versions_SNPlist": [
                     [
                         "PRSUTILS_SNPLIST",
-                        "SNPlist",
+                        "prsutils",
                         "1.0.0"
                     ]
                 ]
@@ -23,6 +23,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-07-20T16:38:00.766719"
+        "timestamp": "2026-07-23T16:52:06.992119"
     }
 }

@@ -15,7 +15,7 @@
                 "versions_prs_utils_norm": [
                     [
                         "PRSUTILS_NORM",
-                        "prs_utils_norm",
+                        "prsutils",
                         "1.0.0"
                     ]
                 ]
@@ -25,6 +25,6 @@
             "nf-test": "0.9.3",
             "nextflow": "25.10.4"
         },
-        "timestamp": "2026-07-20T16:39:41.61851"
+        "timestamp": "2026-07-23T16:54:35.019836"
     }
 }
