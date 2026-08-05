@@ -20,9 +20,6 @@ process PGSCATALOG_COMBINE {
         -s ${scoring_file} \\
         -t ${assembly_version} \\
         -o ${prefix}_normalised.txt.gz
-
-
-    echo "pgscatalog-combine: 1.4.4" > versions.yml
     """
 
     stub:
