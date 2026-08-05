@@ -1,0 +1,93 @@
+name: pgscatalog_match
+description: CLI applications to match variants from PGS Catalog scoring files
+  against plink variant information files and output files ready for plink2
+  score
+keywords:
+  - prs
+  - pgscatalog
+  - DxNextflowPRS
+tools:
+  - pgscatalog:
+      description: CLI to interact with PGScatalog files
+      homepage: https://github.com/PGScatalog/pygscatalog
+      documentation: https://pygscatalog.readthedocs.io/
+      tool_dev_url: https://github.com/PGScatalog/pygscatalog
+      doi: "10.1038/s41588-024-01721-x"
+      licence:
+        - "Apache-2.0"
+      identifier: ""
+input:
+  - - meta:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. [id: 'test']
+    - pvar:
+        type: file
+        description: PLINK2 pvar file
+        ontologies: []
+  - - meta2:
+        type: map
+        description: |
+          Groovy Map containing sample information
+          e.g. [id: 'test']
+    - scoring_file:
+        type: file
+        description: PGScatalog scoring file
+        ontologies: []
+output:
+  summary:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. [id: 'test']
+      - "*_summary.csv":
+          type: file
+          description: summary output csv
+          ontologies: []
+  scorefile:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. [id: 'test']
+      - "*.scorefile.gz":
+          type: file
+          description: scorefile
+          ontologies: []
+  log:
+    - - meta:
+          type: map
+          description: |
+            Groovy Map containing sample information
+            e.g. [id: 'test']
+      - "*_log.csv.gz":
+          type: file
+          description: log file csv.gz
+          ontologies: []
+  versions_pgscatalog_match:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - pgscatalog:
+          type: string
+          description: The name of the tool
+      - echo 1.4.4:
+          type: eval
+          description: The expression to obtain the version of the tool
+topics:
+  versions:
+    - - ${task.process}:
+          type: string
+          description: The name of the process
+      - pgscatalog:
+          type: string
+          description: The name of the tool
+      - echo 1.4.4:
+          type: eval
+          description: The expression to obtain the version of the tool
+authors:
+  - "@jorisvansteenbrugge"
+maintainers:
+  - "@jorisvansteenbrugge"

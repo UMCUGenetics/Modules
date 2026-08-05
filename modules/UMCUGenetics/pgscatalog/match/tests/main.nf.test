@@ -9,6 +9,8 @@ nextflow_process {
     tag "modules"
     tag "pgscatalog"
     tag "pgscatalog/match"
+    tag "modules_UMCUGenetics"
+    tag "plink2/vcfexpanded"
 
     test("Test SNV ambiguity detection"){
         setup{
