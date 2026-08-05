@@ -15,7 +15,6 @@ workflow BAM_HAPLOTYPECALLER_NORM {
 
     main:
 
-    // [model_meta, snplist, vcf, tbi]
     ch_per_model = ch_snp_list.join(ch_snp_vcf)
 
     ch_hc = ch_samplesheet.combine(ch_per_model)
