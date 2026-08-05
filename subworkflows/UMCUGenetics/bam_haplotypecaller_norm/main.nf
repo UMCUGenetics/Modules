@@ -3,14 +3,14 @@ include { BCFTOOLS_NORM                } from '../../../modules/nf-core/bcftools
 
 workflow BAM_HAPLOTYPECALLER_NORM {
     take:
-    ch_samplesheet
-    ch_genome_fasta
-    ch_genome_index
-    ch_genome_dict
-    ch_dbsnp
-    ch_dbsnp_index
-    ch_snp_list
-    ch_snp_vcf
+    ch_samplesheet  // channel: [ val(meta), path(samplesheet)]
+    ch_genome_fasta // channel: [ val(meta), path(fasta)]
+    ch_genome_index // channel: [ val(meta), path(fai)]
+    ch_genome_dict  // channel: [ val(meta), path(dict)]
+    ch_dbsnp        // channel: [ val(meta), path(vcf)]
+    ch_dbsnp_index  // channel: [ val(meta), path(tbi)]
+    ch_snp_list     // channel: [ val(meta), path(list)]
+    ch_snp_vcf      // channel: [ val(meta), path(vcf)]
 
 
     main:
@@ -48,6 +48,6 @@ workflow BAM_HAPLOTYPECALLER_NORM {
     )
 
     emit:
-    vcf         = BCFTOOLS_NORM.out.vcf
-    tbi         = BCFTOOLS_NORM.out.index
+    vcf         = BCFTOOLS_NORM.out.vcf   // channel: [ val(meta), path(vcf)]
+    tbi         = BCFTOOLS_NORM.out.index // channel: [ val(meta), path(tbi)]
 }

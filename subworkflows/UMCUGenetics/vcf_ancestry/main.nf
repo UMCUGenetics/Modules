@@ -9,11 +9,11 @@ include { PLINK2_VCFEXPANDED   } from '../../../modules/UMCUGenetics/plink2/vcfe
 
 workflow VCF_ANCESTRY {
     take:
-    ch_vcf
-    ch_ref_vcf
-    ch_ref_meta
-    ch_genome
-    ch_genome_index
+    ch_vcf           // channel: [ val(meta), path(vcf), path(tbi)]
+    ch_ref_vcf       // channel: [ val(meta), path(vcf), path(tbi)]
+    ch_ref_meta      // channel: [ val(meta), path(ref_meta)]
+    ch_genome        // channel: [ val(meta), path(fasta)]
+    ch_genome_index  // channel: [ val(meta), path(fai)]
 
     main:
 
@@ -86,7 +86,7 @@ workflow VCF_ANCESTRY {
     )
 
     emit:
-    knn_tsv        = ANCESTRY_CALC.out.knn_tsv
-    knn_pca_plot   = ANCESTRY_CALC.out.knn_pca_plot
-    knn_mqc_tsv    = ANCESTRY_MERGE.out.knn_mqc_tsv
+    knn_tsv        = ANCESTRY_CALC.out.knn_tsv      // channel: [ val(meta), path(tsv)]
+    knn_pca_plot   = ANCESTRY_CALC.out.knn_pca_plot // channel: [ val(meta), path(png)]
+    knn_mqc_tsv    = ANCESTRY_MERGE.out.knn_mqc_tsv // channel: [ val(meta), path(tsv)]
 }

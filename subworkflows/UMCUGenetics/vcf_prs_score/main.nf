@@ -1,12 +1,12 @@
-include { PGSCATALOG_MATCH } from '../../../modules/UMCUGenetics/pgscatalog/match/main'
-include { PRSUTILS_NORM   } from '../../../modules/UMCUGenetics/prsutils/norm/main'
-include { PLINK2_SCOREEXPANDED     } from '../../../modules/UMCUGenetics/plink2/scoreexpanded/main'
-include { PLINK2_VCFEXPANDED       } from '../../../modules/UMCUGenetics/plink2/vcfexpanded/main'
+include { PGSCATALOG_MATCH     } from '../../../modules/UMCUGenetics/pgscatalog/match/main'
+include { PRSUTILS_NORM        } from '../../../modules/UMCUGenetics/prsutils/norm/main'
+include { PLINK2_SCOREEXPANDED } from '../../../modules/UMCUGenetics/plink2/scoreexpanded/main'
+include { PLINK2_VCFEXPANDED   } from '../../../modules/UMCUGenetics/plink2/vcfexpanded/main'
 
 workflow VCF_PRS_SCORE {
     take:
-    ch_vcf
-    ch_normalised_model
+    ch_vcf              // channel: [ val(meta), path(vcf)]
+    ch_normalised_model // channel: [ val(meta), path(model)]
 
     main:
 
@@ -46,14 +46,14 @@ workflow VCF_PRS_SCORE {
 
 
     emit:
-    ch_score_norm     = PRSUTILS_NORM.out.tsv
-    ch_score_variants = PGSCATALOG_MATCH.out.log
-    ch_score          = PGSCATALOG_MATCH.out.scorefile
-    ch_score_summary  = PGSCATALOG_MATCH.out.summary
-    ch_pgen           = PLINK2_VCFEXPANDED.out.pgen
-    ch_psam           = PLINK2_VCFEXPANDED.out.psam
-    ch_pvar           = PLINK2_VCFEXPANDED.out.pvar_zst
-    ch_vmiss_gz       = PLINK2_VCFEXPANDED.out.vmiss_gz
-    ch_afreq_gz       = PLINK2_VCFEXPANDED.out.afreq_gz
+    ch_score_norm     = PRSUTILS_NORM.out.tsv           // channel: [ val(meta), path(tsv)]
+    ch_score_variants = PGSCATALOG_MATCH.out.log        // channel: [ val(meta), path(log)]
+    ch_score          = PGSCATALOG_MATCH.out.scorefile  // channel: [ val(meta), path(scorefile)]
+    ch_score_summary  = PGSCATALOG_MATCH.out.summary    // channel: [ val(meta), path(summary)]
+    ch_pgen           = PLINK2_VCFEXPANDED.out.pgen     // channel: [ val(meta), path(pgen)]
+    ch_psam           = PLINK2_VCFEXPANDED.out.psam     // channel: [ val(meta), path(psam)]
+    ch_pvar           = PLINK2_VCFEXPANDED.out.pvar_zst // channel: [ val(meta), path(pvar_zst)]
+    ch_vmiss_gz       = PLINK2_VCFEXPANDED.out.vmiss_gz // channel: [ val(meta), path(vmiss_gz)]
+    ch_afreq_gz       = PLINK2_VCFEXPANDED.out.afreq_gz // channel: [ val(meta), path(afreq_gz)]
 
 }

@@ -20,7 +20,7 @@ include { PRSUTILS_MERGEPRSMQC            } from '../../../modules/UMCUGenetics/
 workflow BAM_PRS {
 
     take:
-    ch_samplesheet // channel: samplesheet read in from --
+    ch_samplesheet  // channel: [ val(meta), path(samplesheet)]
 
     main:
 
@@ -91,6 +91,7 @@ workflow BAM_PRS {
 
     ch_ancestry_tbi = BAM_HAPLOTYPECALLER_NORM.out.tbi
         .map { meta, tbi -> [meta.sample_id, tbi] }
+
         .groupTuple()
         .map { sid, tbis -> [[id: sid], tbis[0]] }
 
@@ -122,7 +123,7 @@ workflow BAM_PRS {
 
 
     emit:
-    PRS_mqc  = PRSUTILS_MERGEPRSMQC.out.mqc_tsv
+    PRS_mqc  = PRSUTILS_MERGEPRSMQC.out.mqc_tsv // channel: [ val(meta), path(tsv)]
 
 }
 
