@@ -1,7 +1,7 @@
 process PRSUTILS_GETVCF {
     tag "GATK VCF ${meta.id}"
 
-    container "ghcr.io/astral-sh/uv:python3.13-bookworm"
+    container "ghcr.io/umcugenetics/prs-utils:1.0.0"
 
     input:
     tuple val(meta), path(scoring_file)
@@ -9,12 +9,12 @@ process PRSUTILS_GETVCF {
 
     output:
     tuple val(meta), path("*_genotypes.vcf"), emit: vcf
-    tuple val("${task.process}"), val('prsutils'), eval('echo 1.0.0'), emit: versions_gatk_vcf, topic: versions
+    tuple val("${task.process}"), val('prsutils'), eval('prs-utils --version'), emit: versions_gatk_vcf, topic: versions
 
     script:
     def prefix = task.ext.prefix ?: meta.id
     """
-    pgs_to_vcf.py \\
+    prs-utils pgs-to-vcf \\
         ${scoring_file} \\
         ${prefix}_genotypes.vcf \\
         --genome-build ${genome_build}
