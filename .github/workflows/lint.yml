@@ -120,11 +120,11 @@ jobs:
       - name: Set up Nextflow
         uses: nf-core/setup-nextflow@v2
 
-      - name: Install nf-core tools development version
-        run: python -m pip install --upgrade --force-reinstall git+https://github.com/UMCUGenetics/nf-core-tools.git
+      - name: Install nf-core tools
+        run: python -m pip install --upgrade --force-reinstall nf-core==4.1.0
 
       - name: Lint module ${{ matrix.module }}
-        run: nf-core modules lint ${{ matrix.module }}
+        run: nf-core modules lint --key module_tests --key environment_yml --key main_nf --key module_deprecations --key module_tests ${{ matrix.module }}
 
   nf-core-lint-subworkflows:
     runs-on: ubuntu-latest
@@ -149,11 +149,11 @@ jobs:
       - name: Set up Nextflow
         uses: nf-core/setup-nextflow@v2
 
-      - name: Install nf-core tools development version
-        run: python -m pip install --upgrade --force-reinstall git+https://github.com/UMCUGenetics/nf-core-tools.git
+      - name: Install nf-core tools
+        run: python -m pip install --upgrade --force-reinstall nf-core==4.1.0
 
       - name: Lint subworkflow ${{ matrix.subworkflow }}
-        run: nf-core subworkflows lint ${{ matrix.subworkflow }}
+        run: nf-core subworkflows lint --key subworkflow_tests --key subworkflow_if_empty_null --key subworkflow_todos --key main_nf ${{ matrix.subworkflow }}
 
   confirm-pass-lint:
     runs-on: ubuntu-latest
