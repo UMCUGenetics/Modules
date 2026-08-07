@@ -3,8 +3,10 @@ nextflow_process {
     script "../main.nf"
     process "PRSUTILS_MERGEPRSMQC"
 
-    tag "modules/UMCUGenetics"
+    tag "modules_UMCGenetics"
     tag "modules"
+    tag "prsutils"
+    tag "prsutils/mergeprsmqc"
     tag "QC"
 
     test("Test merging PRS result files"){

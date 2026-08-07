@@ -10,6 +10,9 @@ nextflow_process {
     tag "local"
     tag "normalisation"
     tag "modules/PRSUTILS_NORM"
+    tag "prsutils"
+    tag "prsutils/norm"
+    tag "modules_UMCUGenetics"
 
     test("Test two sample PGS normalisation") {
 

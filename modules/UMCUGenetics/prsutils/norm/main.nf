@@ -5,19 +5,22 @@ process PRSUTILS_NORM {
     container "ghcr.io/umcugenetics/prs-utils:1.0.0"
 
     input:
-    tuple val(meta), path(prs_scores)
+    tuple val(meta), val(mu), val(sd), path(prs_scores)
 
     output:
     tuple val(meta), path ("*_normalised_counts.tsv"), emit: tsv
     tuple val("${task.process}"), val('prsutils'), eval('prs-utils --version'), emit: versions_prs_utils_norm, topic: versions
+
+    when:
+    task.ext.when == null || task.ext.when
 
     script:
     def prefix = task.ext.prefix ?: meta.id
     """
     prs-utils normalise-counts \\
         --PRS ${prs_scores} \\
-        --mu ${meta.mu} \\
-        --SD ${meta.sd} \\
+        --mu ${mu} \\
+        --SD ${sd} \\
         -o ${prefix}_normalised_counts.tsv
     """
 

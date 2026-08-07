@@ -41,7 +41,7 @@ workflow VCF_PRS_SCORE {
     )
 
     PRSUTILS_NORM(
-        PLINK2_SCOREEXPANDED.out.score
+        PLINK2_SCOREEXPANDED.out.score.map{ meta, scores -> [[id: meta.id], meta.mu, meta.sd, scores] }
     )
 
 

@@ -13,6 +13,9 @@ process ANCESTRY_CALC {
     tuple val(meta), path("*_knn_pca.png"), emit: knn_pca_plot, optional: true
     tuple val("${task.process}"), val('ancestry_knn'), eval('knn.py --version'), emit: versions_ancestry_knn, topic: versions
 
+    when:
+    task.ext.when == null || task.ext.when
+
     script:
     def prefix = task.ext.prefix ?: meta.id
     def args = task.ext.args ?: ""
