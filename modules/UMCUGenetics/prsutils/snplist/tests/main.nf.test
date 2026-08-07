@@ -7,6 +7,9 @@ nextflow_process {
     tag "modules"
     tag "modules/UMCUGenetics"
     tag "normalisation"
+    tag "modules_UMCUGenetics"
+    tag "prsutils"
+    tag "prsutils/snplist"
 
     test("Test BCAC_313 SNP list") {
 

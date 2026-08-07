@@ -10,6 +10,9 @@ process PRSUTILS_MERGEPRSMQC {
     path("prs_scores_mqc.tsv"), emit: mqc_tsv
     tuple val("${task.process}"), val('prsutils'), eval('prs-utils --version'), emit: versions_prs_utils_merge_prs_mqc, topic: versions
 
+    when:
+    task.ext.when == null || task.ext.when
+
     script:
     """
     prs-utils merge-prs-mqc ${tsvs.join(' ')}

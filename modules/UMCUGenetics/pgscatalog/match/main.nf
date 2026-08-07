@@ -1,9 +1,10 @@
 process PGSCATALOG_MATCH {
     tag "${meta.id}"
+    label 'process_single'
 
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
         ? 'https://depot.galaxyproject.org/singularity/pgscatalog-utils:1.4.4--pyhdfd78af_0'
-        : 'biocontainers/pgscatalog-utils:1.4.4--pyhdfd78af_0'}"
+        : 'quay.io/biocontainers/pgscatalog-utils:1.4.4--pyhdfd78af_0'}"
 
     input:
     tuple val(meta), path(pvar)
@@ -15,6 +16,9 @@ process PGSCATALOG_MATCH {
     tuple val(meta), path("*.scorefile.gz"), emit: scorefile
     tuple val(meta), path("*_log.csv.gz"), emit: log
     tuple val("${task.process}"), val('pgscatalog'), eval('echo 1.4.4'), emit: versions_pgscatalog_match, topic: versions
+
+    when:
+    task.ext.when == null || task.ext.when
 
     script:
     def prefix = task.ext.prefix ?: meta.id
@@ -32,7 +36,7 @@ process PGSCATALOG_MATCH {
     def prefix = task.ext.prefix ?: "Cohort"
     """
 	touch ${prefix}_summary.csv
-	touch ${prefix}.scorefile.gz
-    touch ${prefix}_log.csv.gz
+	echo "" | gzip > ${prefix}.scorefile.gz
+    echo "" | gzip > ${prefix}_log.csv.gz
 	"""
 }
