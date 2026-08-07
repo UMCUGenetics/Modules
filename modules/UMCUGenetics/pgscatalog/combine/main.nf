@@ -3,7 +3,7 @@ process PGSCATALOG_COMBINE {
 
     container "${workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container
         ? 'https://depot.galaxyproject.org/singularity/pgscatalog-utils:1.4.4--pyhdfd78af_0'
-        : 'biocontainers/pgscatalog-utils:1.4.4--pyhdfd78af_0'}"
+        : 'quay.io/biocontainers/pgscatalog-utils:1.4.4--pyhdfd78af_0'}"
 
     input:
     tuple val(meta), path(scoring_file)

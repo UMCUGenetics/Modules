@@ -2,6 +2,8 @@ process ANCESTRY_MERGE {
     tag "ANCESTRY_MERGE"
     label "process_low"
 
+    container "ghcr.io/astral-sh/uv:python3.13-bookworm"
+
     input:
     path(knn_tsvs)
 
