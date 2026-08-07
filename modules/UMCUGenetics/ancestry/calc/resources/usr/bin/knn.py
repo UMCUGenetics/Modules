@@ -23,6 +23,9 @@ import typer
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
+
+__version__ = '1.0.0'
+
 app = typer.Typer(add_completion=False, help="KNN ancestry prediction from PCA coordinates.")
 
 
@@ -315,6 +318,11 @@ def write_pca_plot(
     fig.savefig(output_path, dpi=200)
     plt.close(fig)
 
+def version_callback(value: bool) -> None:
+    if value:
+        typer.echo(__version__)
+        raise typer.Exit()
+
 
 @app.command()
 def main(
@@ -356,6 +364,15 @@ def main(
     plot_output: Annotated[
         Path, typer.Option("--plot-output", help="Output PNG path for PCA scatter plot.")
     ] = Path("knn_pca.png"),
+    version: Annotated[
+        bool,
+        typer.Option(
+            "--version",
+            callback=version_callback,
+            is_eager=True,
+            help="Show version and exit.",
+        ),
+    ] = False,
 ) -> None:
     """Run the KNN workflow and write prediction output.
 
@@ -418,6 +435,7 @@ def main(
         )
         typer.echo(f"Wrote {plot_output}")
     typer.echo(f"Wrote {output}")
+
 
 
 if __name__ == "__main__":
