@@ -4,10 +4,9 @@ nextflow_process {
     process "PRSUTILS_SAMPLEQC"
 
     tag "modules"
-    tag "modules/local"
-    tag "local"
-    tag "QC"
-    tag "PRSUTILS_SAMPLEQC"
+    tag "modules_UMCUGenetics"
+    tag "prsutils"
+    tag "prsutils/sampleqc"
 
     test ("QC full PASS") {
         when {

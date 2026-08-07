@@ -5,7 +5,7 @@ process PRSUTILS_NORM {
     container "ghcr.io/umcugenetics/prs-utils:1.0.0"
 
     input:
-    tuple val(meta), val(mu), val(sd), path(prs_scores)
+    tuple val(meta), path(prs_scores)
 
     output:
     tuple val(meta), path ("*_normalised_counts.tsv"), emit: tsv
@@ -19,8 +19,8 @@ process PRSUTILS_NORM {
     """
     prs-utils normalise-counts \\
         --PRS ${prs_scores} \\
-        --mu ${mu} \\
-        --SD ${sd} \\
+        --mu ${meta['mu']} \\
+        --SD ${meta['sd']} \\
         -o ${prefix}_normalised_counts.tsv
     """
 

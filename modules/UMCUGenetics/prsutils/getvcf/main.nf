@@ -11,6 +11,9 @@ process PRSUTILS_GETVCF {
     tuple val(meta), path("*_genotypes.vcf"), emit: vcf
     tuple val("${task.process}"), val('prsutils'), eval('prs-utils --version'), emit: versions_gatk_vcf, topic: versions
 
+    when:
+    task.ext.when == null || task.ext.when
+
     script:
     def prefix = task.ext.prefix ?: meta.id
     """
