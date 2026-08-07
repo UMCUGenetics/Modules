@@ -5,6 +5,7 @@ nextflow_process {
     process "PLINK2_VCFEXPANDED"
     tag "modules"
     tag "modules_nfcore"
+    tag "modules_UMCUGenetics"
     tag "plink2"
     tag "plink2/vcfexpanded"
 

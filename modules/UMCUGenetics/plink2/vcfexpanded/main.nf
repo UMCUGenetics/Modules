@@ -50,9 +50,9 @@ process PLINK2_VCFEXPANDED {
     touch ${prefix}.pvar
     touch ${prefix}.pvar.zst
 	touch ${prefix}.afreq
-    touch ${prefix}.afreq.gz
+    echo "" | gzip > ${prefix}.afreq.gz
     touch ${prefix}.vmiss
-    touch ${prefix}.vmiss.gz
+    echo "" | gzip > ${prefix}.vmiss.gz
 
     """
 }

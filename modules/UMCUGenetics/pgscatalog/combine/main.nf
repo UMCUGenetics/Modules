@@ -13,6 +13,9 @@ process PGSCATALOG_COMBINE {
     tuple val(meta), path("*_normalised.txt.gz"), emit: normalised_model
     tuple val("${task.process}"), val('pgscatalog'), eval('echo 1.4.4'), emit: versions_pgscatalog_combine, topic: versions
 
+    when:
+    task.ext.when == null || task.ext.when
+
     script:
     def prefix = task.ext.prefix ?: meta.id
     """
@@ -25,6 +28,6 @@ process PGSCATALOG_COMBINE {
     stub:
     def prefix = task.ext.prefix ?: meta.id
     """
-    touch ${prefix}_normalised.txt.gz
+    echo "" | gzip > ${prefix}_normalised.txt.gz
     """
 }

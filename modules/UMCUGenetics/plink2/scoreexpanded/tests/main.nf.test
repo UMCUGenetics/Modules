@@ -6,7 +6,7 @@ nextflow_process {
 
 
     tag "modules"
-    tag "modules_nfcore"
+    tag "modules_UMCUGenetics"
     tag "plink2"
     tag "plink2/scoreexpanded"
     tag "plink2/vcfexpanded"

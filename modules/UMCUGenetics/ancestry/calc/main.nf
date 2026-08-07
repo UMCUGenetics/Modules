@@ -28,4 +28,10 @@ process ANCESTRY_CALC {
         --output ${prefix}_knn.tsv
     """
 
+    stub:
+    def prefix = task.ext.prefix ?: meta.id
+    """
+    touch ${prefix}_knn.tsv
+    touch ${prefix}_knn_pca.png
+    """
 }
