@@ -3,12 +3,11 @@ nextflow_process {
     script "../main.nf"
     process "PRSUTILS_GETVCF"
 
-
     tag "modules"
-    tag "modules/local"
-    tag "local"
+    tag "modules_UMCUGenetics"
     tag "normalisation"
-    tag "modules/PRSUTILS_GETVCF"
+    tag "prsutils"
+    tag "prsutils/getvcf"
 
     test("Test BCAC_313 SNP VCF") {
 

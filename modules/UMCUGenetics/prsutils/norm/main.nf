@@ -11,13 +11,16 @@ process PRSUTILS_NORM {
     tuple val(meta), path ("*_normalised_counts.tsv"), emit: tsv
     tuple val("${task.process}"), val('prsutils'), eval('prs-utils --version'), emit: versions_prs_utils_norm, topic: versions
 
+    when:
+    task.ext.when == null || task.ext.when
+
     script:
     def prefix = task.ext.prefix ?: meta.id
     """
     prs-utils normalise-counts \\
         --PRS ${prs_scores} \\
-        --mu ${meta.mu} \\
-        --SD ${meta.sd} \\
+        --mu ${meta['mu']} \\
+        --SD ${meta['sd']} \\
         -o ${prefix}_normalised_counts.tsv
     """
 

@@ -1,5 +1,6 @@
 process PRSUTILS_SNPLIST {
     tag "${meta.id}"
+    label "process_single"
 
     container "ghcr.io/umcugenetics/prs-utils:1.0.0"
 
@@ -9,6 +10,9 @@ process PRSUTILS_SNPLIST {
     output:
     tuple val(meta), path("*_snplist.list"), emit: list
     tuple val("${task.process}"), val('prsutils'), eval('prs-utils --version'), emit: versions_SNPlist, topic: versions
+
+    when:
+    task.ext.when == null || task.ext.when
 
     script:
     def prefix = task.ext.prefix ?: meta.id

@@ -4,8 +4,9 @@ nextflow_process {
     process "PGSCATALOG_COMBINE"
 
     tag "modules"
-    tag "modules/UMCUGenetics"
-
+    tag "modules_UMCUGenetics"
+    tag "pgscatalog"
+    tag "pgscatalog/combine"
 
     test("Test Correct model formatting "){
         when{

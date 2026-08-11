@@ -9,47 +9,41 @@
 ├── main.nf
 └── modules
     └── UMCUGenetics
+└── subworkflows
+    └── UMCUGenetics
 ```
 
 Modules are placed under the `./modules/UMCUGenetics/` folder in the format tool/subtool. For example `./modules/UMCUGenetics/samtools/view/`
+Similarly, subworkflows are placed under the `subworkflows/UMCUGenetics/` folder. Preferably a subworkflow is named `INPUT_DESCRIPTION` For example `./subworkflows/UMCUGenetics/bam_prs/` or `./subworkflows/UMCUGenetics/vcf_ancestry/`
 
 
-## Linting configuration
-Note: A fork of the nf-core CLI tools is used to run the linting actions (https://github.com/UMCUGenetics/nf-core-tools.git). This was done to make the linting of modules more customisable. For our purposes not all requirements by nf-core are neccesary.
-Linting configuration of this repository is configured in `.nf-core.yml` and is structured similarly to how `nf-core pipeline lint` configuration works (note that the tests in the yaml file are the ones being skipped, all the others are enabled). Usually, it is not neccessary to change this, but to view all available modules linting options:
+## Linting
+To lint the modules and subworkflows nf-core/tools is used. We use the default linting configuration, except for the `meta.yml` requirements. The github action for linting (triggered upon creating a PR to main) is already configured to ignore `meta.yml` checks. To run linting locally with the same settings:
 
 ``` sh
-nf-core modules lint --list
+pip install nf-core==4.1.0
+nf-core modules lint --key module_tests --key environment_yml --key main_nf --key module_deprecations --key module_tests <tool/name>
+nf-core subworkflows lint --key subworkflow_tests --key subworkflow_if_empty_null --key subworkflow_todos --key main_nf <name>
 ```
 
-Install the forked nf-core tools locally:
+## Testing
+Module and subworkflow tests are evaluated using nf-test. A github action is configured to automatically run tests upon module/subworkflow change.
+
+### Test data
+Test data can be hosted on the companion repository https://github.com/UMCUGenetics/DxNextflowTestData. Be aware that this repository is public and should not contain any private data.
+
+
+## Using a module or subworkflow in a nextflow pipeline
+Components from this repository can be added to a pipeline similarly to how nf-core components are installed.
 
 ``` sh
-pip install git+https://github.com/UMCUGenetics/nf-core-tools.git
+nf-core modules --git-remote https://github.com/UMCUGenetics/NF-Modules install pgscatalog/combine
+nf-core subworkflows --git-remote https://github.com/UMCUGenetics/NF-Modules install bam_prs
 ```
 
-### Github actions
-Linting is triggered automatically upon creating a pull request through a github actions workflow [.github/workflows/lint.yml]. The actions workflow is adapted from the actions workflow used in the [nf-core/modules](https://github.com/nf-core/modules) repository, with mostly small changes that remove nf-core specific action runners.
-
-### Running linting
-
-Alternatively, linting test can be manually executed:
+To view all available components:
 
 ``` sh
-cd ./modules
-nf-core modules lint <tool/command>
-# Example: nf-core modules lint pgscatalog/combine
-```
-
-
-
-## Testing configuration
-TODO
-
-
-## Using a module in a nextflow pipeline
-Modules in this repository can be added to a pipeline similarly to how nf-core modules are installed.
-
-``` sh
-nf-core modules --git-remote https://github.com/UMCUGenetics/Modules install pgscatalog/combine
+nf-core modules --git-remote https://github.com/UMCUGenetics/NF-Modules list remote
+nf-core subworkflows --git-remote https://github.com/UMCUGenetics/NF-Modules list remote
 ```
