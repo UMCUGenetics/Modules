@@ -14,7 +14,7 @@ workflow PREPARE_ICA_REFERENCES {
     genome_fasta = UNTAR.out.untar
         .map{ meta, dir -> [meta, file(
                     dir.resolve('genome.fa'),
-                    checkIfExists: true)
+                    checkIfExists: !workflow.stubRun)
             ]}
 
     SAMTOOLS_FAIDX(
