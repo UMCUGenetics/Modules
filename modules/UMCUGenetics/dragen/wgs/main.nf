@@ -1,4 +1,4 @@
-process DRAGEN {
+process DRAGEN_WGS {
     // No container image as dragen requires specific hardware (FPGA) to run.
     tag "${meta.id}"
     label 'process_fpga'

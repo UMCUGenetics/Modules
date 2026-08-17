@@ -1,15 +1,15 @@
 nextflow_process {
 
-    name "Test Process DRAGEN"
+    name "Test Process DRAGEN WGS"
     script "../main.nf"
-    process "DRAGEN"
+    process "DRAGEN_WGS"
 
     tag "modules"
     tag "modules_UMCUGenetics"
     tag "dragen"
-    tag "dragen"
+    tag "dragen/wgs"
 
-    test("dragen - stub") {
+    test("dragen wgs - stub") {
         options '-stub'
         when {
             process {

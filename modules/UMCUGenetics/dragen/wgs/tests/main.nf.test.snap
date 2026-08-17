@@ -1,5 +1,5 @@
 {
-    "dragen - stub": {
+    "dragen wgs - stub": {
         "content": [
             {
                 "0": [
@@ -73,7 +73,7 @@
                 ],
                 "7": [
                     [
-                        "DRAGEN",
+                        "DRAGEN_WGS",
                         "dragen",
                         "bash: dragen: command not found"
                     ]
@@ -141,7 +141,7 @@
                 ],
                 "versions_dragen": [
                     [
-                        "DRAGEN",
+                        "DRAGEN_WGS",
                         "dragen",
                         "bash: dragen: command not found"
                     ]
@@ -158,14 +158,14 @@
             {
                 "versions_dragen": [
                     [
-                        "DRAGEN",
+                        "DRAGEN_WGS",
                         "dragen",
                         "bash: dragen: command not found"
                     ]
                 ]
             }
         ],
-        "timestamp": "2026-08-14T16:28:06.645335",
+        "timestamp": "2026-08-17T18:14:24.216965",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "25.10.2"
