@@ -1,34 +1,35 @@
-process DRAGEN_WGS {
+process DRAGEN {
     // No container image as dragen requires specific hardware (FPGA) to run.
     tag "${meta.id}"
     label 'process_fpga'
 
+    // Dragen 4.2.4-2 (F2 compatible container)
+    container '079623148045.dkr.ecr.eu-central-1.amazonaws.com/cp-prod/f1b7ad6a-11ac-4bc1-b705-b275ff2887ad:latest'
+
     input:
-    // TODO: use prefix via task.ext.prefix instead of passing it as an input
     // TODO: what to do with repeat_genotype_specs? -> or should we create a 'srWGS' specific module that has this hardcoded?
     tuple val(meta), path(r1_fastq), path(r2_fastq)
     path fastq_list
     path ref_tar
     path repeat_genotype_specs
-    val output_file_prefix
 
     output:
     // TODO: Expand output to include all expected outputs of the process? Or can we leave it tailored to the needs of the srWGS workflow?
     tuple val(meta), path("*"), emit: output
     tuple val(meta), path('*.csv'), emit: csv
-    tuple val(meta), path("${meta.id}_${output_file_prefix}.wgs_coverage_metrics.csv"), emit: wgs_coverage_metrics
-    tuple val(meta), path("${meta.id}_${output_file_prefix}.cnv_metrics.csv"), emit: cnv_metrics
-    tuple val(meta), path("${meta.id}_${output_file_prefix}.mapping_metrics.csv"), emit: mapping_metrics
-    tuple val(meta), path("${meta.id}_${output_file_prefix}.ploidy_estimation_metrics.csv"), emit: ploidy_estimation_metrics
-    tuple val(meta), path("${meta.id}_${output_file_prefix}.gvcf_metrics.csv"), emit: gvcf_metrics
+    tuple val(meta), path("${prefix}.wgs_coverage_metrics.csv"), emit: wgs_coverage_metrics
+    tuple val(meta), path("${prefix}.cnv_metrics.csv"), emit: cnv_metrics
+    tuple val(meta), path("${prefix}.mapping_metrics.csv"), emit: mapping_metrics
+    tuple val(meta), path("${prefix}.ploidy_estimation_metrics.csv"), emit: ploidy_estimation_metrics
+    tuple val(meta), path("${prefix}.gvcf_metrics.csv"), emit: gvcf_metrics
     tuple val("${task.process}"), val('dragen'), eval("dragen --version 2>&1 | sed 's/^dragen Version //'"), topic: versions, emit: versions_dragen
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
+    prefix = task.ext.prefix ?: "${meta.id}"
     def args = task.ext.args ?: ''
-    // def prefix = task.ext.prefix ?: "${meta.id}"
     """
     set -ex
     mkdir -p /scratch/reference
@@ -40,7 +41,7 @@ process DRAGEN_WGS {
         --ref-dir /scratch/reference/DRAGEN/9 \\
         --fastq-list ${fastq_list} \\
         --fastq-list-sample-id ${meta.id} \\
-        --output-file-prefix ${meta.id}_${output_file_prefix} \\
+        --output-file-prefix ${prefix} \\
         --output-directory ./ \\
         --intermediate-results-dir /scratch \\
         --enable-map-align true \\
@@ -81,17 +82,16 @@ process DRAGEN_WGS {
     """
 
     stub:
-    // TODO: Expand stub output to include all expected outputs of the process?
+    prefix = task.ext.prefix ?: "${meta.id}"
     def args = task.ext.args ?: ''
-    // def prefix = task.ext.prefix ?: "${meta.id}"
     """
     echo ${args}
 
-    touch ${meta.id}_${output_file_prefix}.bam
-    touch ${meta.id}_${output_file_prefix}.wgs_coverage_metrics.csv
-    touch ${meta.id}_${output_file_prefix}.cnv_metrics.csv
-    touch ${meta.id}_${output_file_prefix}.mapping_metrics.csv
-    touch ${meta.id}_${output_file_prefix}.ploidy_estimation_metrics.csv
-    touch ${meta.id}_${output_file_prefix}.gvcf_metrics.csv
+    touch ${prefix}.bam
+    touch ${prefix}.wgs_coverage_metrics.csv
+    touch ${prefix}.cnv_metrics.csv
+    touch ${prefix}.mapping_metrics.csv
+    touch ${prefix}.ploidy_estimation_metrics.csv
+    touch ${prefix}.gvcf_metrics.csv
     """
 }
