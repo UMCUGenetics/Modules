@@ -1,0 +1,44 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/nf-core/modules/master/subworkflows/yaml-schema.json
+name: "bam_fp"
+## TODO nf-core: Add a description of the subworkflow and list keywords
+description: Sort SAM/BAM/CRAM file
+keywords:
+  - sort
+  - bam
+  - sam
+  - cram
+## TODO nf-core: Add a list of the modules and/or subworkflows used in the subworkflow
+components:
+  - gatk4/haplotypecaller:
+    git_remote: https://github.com/nf-core/modules.git
+
+## TODO nf-core: List all of the channels used as input with a description and their structure
+input:
+  - ch_bam:
+      type: file
+      description: |
+        The input channel containing the BAM/CRAM/SAM files
+        Structure: [ val(meta), path(bam) ]
+      pattern: "*.{bam/cram/sam}"
+    ## TODO nf-core: List all of the channels used as output with a descriptions and their structure
+  - ch_bai:
+      description: ""
+  - ch_ref:
+      description: ""
+  - ch_ref_index:
+      description: ""
+  - ch_intervals:
+      description: ""
+  - ch_dict:
+      description: ""
+  - ch_db_snp:
+      description: ""
+  - ch_db_snp_tbi:
+      description: ""
+output:
+  - fp:
+      description: ""
+authors:
+  - "@sdevriend"
+maintainers:
+  - "@sdevriend"
