@@ -29,6 +29,8 @@ process DRAGENUTILS_DXQC {
     """
 
     stub:
+    prefix = task.ext.prefix ?: "${meta.id}"
+
     """
     touch ${prefix}.dragen_dx_qc.csv
     """
