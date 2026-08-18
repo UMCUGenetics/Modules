@@ -7,7 +7,7 @@
                         {
                             "id": "HG002"
                         },
-                        "HG002_.dragen_dx_qc.csv:md5,98824ef57db0db2af68a565168580df6"
+                        "HG002.dragen_dx_qc.csv:md5,a6e8fd73836dd3b75ef50f082817cd24"
                     ]
                 ],
                 "1": [
@@ -22,7 +22,7 @@
                         {
                             "id": "HG002"
                         },
-                        "HG002_.dragen_dx_qc.csv:md5,98824ef57db0db2af68a565168580df6"
+                        "HG002.dragen_dx_qc.csv:md5,a6e8fd73836dd3b75ef50f082817cd24"
                     ]
                 ],
                 "versions_dragenutils": [
@@ -43,7 +43,7 @@
                 ]
             }
         ],
-        "timestamp": "2026-08-14T16:18:23.243017",
+        "timestamp": "2026-08-18T15:36:11.629383",
         "meta": {
             "nf-test": "0.9.5",
             "nextflow": "25.10.2"

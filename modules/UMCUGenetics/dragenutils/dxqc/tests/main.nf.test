@@ -21,7 +21,6 @@ nextflow_process {
                     file(params.modules_umcu_testdata_base_path + "dragen_utils/qc/HG002.ploidy_estimation_metrics.csv", checkIfExists: true),
                     file(params.modules_umcu_testdata_base_path + "dragen_utils/qc/HG002.gvcf_metrics.csv", checkIfExists: true),
                 ]
-                input[1] = ""
                 """
             }
         }
