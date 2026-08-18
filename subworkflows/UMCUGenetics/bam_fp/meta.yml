@@ -9,8 +9,9 @@ keywords:
   - cram
 ## TODO nf-core: Add a list of the modules and/or subworkflows used in the subworkflow
 components:
-  - gatk4/haplotypecaller: null
-    git_remote: https://github.com/nf-core/modules.git
+  - gatk4/haplotypecaller: 
+      git_remote: https://github.com/nf-core/modules.git
+
 
 ## TODO nf-core: List all of the channels used as input with a description and their structure
 input:
