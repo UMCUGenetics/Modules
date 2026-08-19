@@ -3,6 +3,7 @@ description: "Prepare ica genome reference tar into fasta, fai, dict channels"
 keywords:
   - prs
 components:
+  - untar/genome
   - samtools/faidx:
       git_remote: https://github.com/nf-core/modules.git
   - gatk4/createsequencedictionary:

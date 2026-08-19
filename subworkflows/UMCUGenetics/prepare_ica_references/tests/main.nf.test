@@ -15,7 +15,6 @@ nextflow_workflow {
         nfcoreInstall(
             "${launchDir}/library/",
             [
-                "untar",
                 "samtools/faidx",
                 "gatk4/createsequencedictionary"
             ]
