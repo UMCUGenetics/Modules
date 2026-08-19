@@ -9,7 +9,7 @@ process DRAGENUTILS_DXQC {
 
     output:
     tuple val(meta), path("${prefix}.dragen_dx_qc.csv"), emit: csv
-    tuple val("${task.process}"), val('dragenutils'), eval("echo 0.1.0"), topic: versions, emit: versions_dragenutils
+    tuple val("${task.process}"), val('dragenutils'), eval("dragen-utils --version"), topic: versions, emit: versions_dragenutils
 
     when:
     task.ext.when == null || task.ext.when
