@@ -20,7 +20,7 @@ include { PRSUTILS_MERGEPRSMQC     } from '../../../modules/UMCUGenetics/prsutil
 workflow BAM_PRS {
 
     take:
-    ch_samplesheet  // channel: [ val(meta), path(samplesheet)]
+    ch_samplesheet  // channel: [ val(meta), path(bam), path(bai)]
     ch_genome_fasta // channel: [ val(meta), path(fasta)]
     ch_genome_index // channel: [ val(meta), path(fai)]
     ch_genome_dict // channel: [ val(meta), path(dict)]
