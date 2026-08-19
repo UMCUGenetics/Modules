@@ -27,14 +27,13 @@ workflow BAM_FP {
     ch_bam
       .join(ch_bai)
       .combine(ch_intervals)
-      .map{meta, bam, bai, intervals -> 
-        [meta, bam, bai, intervals, [] ]
+      .map{meta, bam, bai, meta2, intervals -> 
+        return tuple([meta, bam, bai, intervals, [] ])
       }
       .set{ ch_bam_bai_intervals }
 
     GATK4_HAPLOTYPECALLER(
         ch_bam_bai_intervals,
-
         ch_ref,
         ch_ref_index,
         ch_dict,
