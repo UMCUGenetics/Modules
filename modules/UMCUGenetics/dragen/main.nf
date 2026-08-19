@@ -21,7 +21,7 @@ process DRAGEN {
     tuple val(meta), path("${prefix}.mapping_metrics.csv"), optional: true, emit: mapping_metrics
     tuple val(meta), path("${prefix}.ploidy_estimation_metrics.csv"), optional: true, emit: ploidy_estimation_metrics
     tuple val(meta), path("${prefix}.gvcf_metrics.csv"), optional: true, emit: gvcf_metrics
-    tuple val("${task.process}"), val('dragen'), eval('{ set +x; } 2>/dev/null; dragen --version 2>&1 | sed "s/^dragen Version //"'), topic: versions, emit: versions_dragen
+    tuple val("${task.process}"), val('dragen'), eval("dragen --version 2>&1 | sed 's/^dragen Version //'"), topic: versions, emit: versions_dragen
 
     when:
     task.ext.when == null || task.ext.when
@@ -35,7 +35,6 @@ process DRAGEN {
     }
 
     """
-    set -ex
     mkdir -p /scratch/reference
     tar -C /scratch/reference -xf ${ref_tar}
 
