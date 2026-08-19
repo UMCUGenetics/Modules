@@ -5,7 +5,7 @@
 */
 
 
-include { GATK4_HAPLOTYPE_CALLER } from '../../../modules/nf-core/gatk4/haplotypecaller/main'
+include { GATK4_HAPLOTYPECALLER } from '../../../modules/nf-core/gatk4/haplotypecaller/main'
 
 workflow BAM_FP {
 
@@ -32,7 +32,7 @@ workflow BAM_FP {
       }
       .set{ ch_bam_bai_intervals }
 
-    GATK4_HAPLOTYPE_CALLER(
+    GATK4_HAPLOTYPECALLER(
         ch_bam_bai_intervals,
 
         ch_ref,
@@ -46,6 +46,6 @@ workflow BAM_FP {
     //GATK4_GENOTYPEGVCFS?
 
     emit:
-    fp         = GATK4_HAPLOTYPE_CALLER.out.vcf           // channel: [ val(meta), [vcf?] ]
+    fp         = GATK4_HAPLOTYPECALLER.out.vcf           // channel: [ val(meta), [vcf?] ]
 
 }
