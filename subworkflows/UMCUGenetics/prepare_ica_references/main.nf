@@ -1,5 +1,5 @@
 
-include { UNTAR                          } from '../../../modules/nf-core/untar/main'
+include { UNTAR_GENOME                   } from '../../../modules/UMCUGenetics/untar/genome/main'
 include { SAMTOOLS_FAIDX                 } from '../../../modules/nf-core/samtools/faidx/main'
 include { GATK4_CREATESEQUENCEDICTIONARY } from '../../../modules/nf-core/gatk4/createsequencedictionary/main'
 
@@ -9,11 +9,10 @@ workflow PREPARE_ICA_REFERENCES {
 
     main:
 
-    UNTAR(genome_tar)
+    UNTAR_GENOME(genome_tar)
 
-    genome_fasta = UNTAR.out.untar
-        .map{ meta, dir -> [meta, file(
-                    dir.resolve('genome.fa'),
+    genome_fasta = UNTAR_GENOME.out.untar
+        .map{ meta, dir -> [meta, file("${dir}/genome.fa",
                     checkIfExists: true)
             ]}
 
@@ -29,6 +28,6 @@ workflow PREPARE_ICA_REFERENCES {
     genome_fasta = genome_fasta
     genome_fai   = SAMTOOLS_FAIDX.out.fai
     genome_dict  = GATK4_CREATESEQUENCEDICTIONARY.out.dict
-    genome_dir   = UNTAR.out.untar
+    genome_dir   = UNTAR_GENOME.out.untar
 
 }

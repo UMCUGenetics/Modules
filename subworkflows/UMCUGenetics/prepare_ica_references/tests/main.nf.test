@@ -49,4 +49,5 @@ nextflow_workflow {
             nfcoreUnlink("${launchDir}/library/", "${baseDir}/modules/")
         }
     }
+
 }
