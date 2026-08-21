@@ -9,6 +9,7 @@
                         },
                         [
                             "sample1.bam:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "sample1.bam.bai:md5,d41d8cd98f00b204e9800998ecf8427e",
                             "sample1.cnv_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                             "sample1.gvcf_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                             "sample1.mapping_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -36,7 +37,7 @@
                         {
                             "id": "sample1"
                         },
-                        "sample1.wgs_coverage_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "sample1.bam:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "3": [
@@ -44,7 +45,7 @@
                         {
                             "id": "sample1"
                         },
-                        "sample1.cnv_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "sample1.bam.bai:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "4": [
@@ -52,7 +53,7 @@
                         {
                             "id": "sample1"
                         },
-                        "sample1.mapping_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "sample1.wgs_coverage_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "5": [
@@ -60,7 +61,7 @@
                         {
                             "id": "sample1"
                         },
-                        "sample1.ploidy_estimation_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "sample1.cnv_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "6": [
@@ -68,14 +69,46 @@
                         {
                             "id": "sample1"
                         },
-                        "sample1.gvcf_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                        "sample1.mapping_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "7": [
                     [
+                        {
+                            "id": "sample1"
+                        },
+                        "sample1.ploidy_estimation_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "8": [
+                    [
+                        {
+                            "id": "sample1"
+                        },
+                        "sample1.gvcf_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "9": [
+                    [
                         "DRAGEN",
                         "dragen",
                         "bash: line 1: dragen: command not found"
+                    ]
+                ],
+                "bai": [
+                    [
+                        {
+                            "id": "sample1"
+                        },
+                        "sample1.bam.bai:md5,d41d8cd98f00b204e9800998ecf8427e"
+                    ]
+                ],
+                "bam": [
+                    [
+                        {
+                            "id": "sample1"
+                        },
+                        "sample1.bam:md5,d41d8cd98f00b204e9800998ecf8427e"
                     ]
                 ],
                 "cnv_metrics": [
@@ -123,6 +156,7 @@
                         },
                         [
                             "sample1.bam:md5,d41d8cd98f00b204e9800998ecf8427e",
+                            "sample1.bam.bai:md5,d41d8cd98f00b204e9800998ecf8427e",
                             "sample1.cnv_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                             "sample1.gvcf_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
                             "sample1.mapping_metrics.csv:md5,d41d8cd98f00b204e9800998ecf8427e",
@@ -165,10 +199,10 @@
                 ]
             }
         ],
-        "timestamp": "2026-08-18T11:08:58.003281",
+        "timestamp": "2026-08-21T15:01:24.781021",
         "meta": {
             "nf-test": "0.9.5",
-            "nextflow": "25.10.2"
+            "nextflow": "26.04.6"
         }
     }
 }
