@@ -6,6 +6,7 @@
 
 
 include { GATK4_HAPLOTYPECALLER } from '../../../modules/nf-core/gatk4/haplotypecaller/main'
+include { GATK4_GENOTYPEGVCFS } from '../../../modules/nf-core/gatk4/haplotypecaller/main'
 
 workflow BAM_FP {
 
@@ -42,7 +43,7 @@ workflow BAM_FP {
 
 
     )
-    //GATK4_GENOTYPEGVCFS?
+    //GATK4_GENOTYPEGVCFS()
 
     emit:
     fp         = GATK4_HAPLOTYPECALLER.out.vcf           // channel: [ val(meta), [vcf?] ]
