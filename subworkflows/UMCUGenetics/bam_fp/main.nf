@@ -6,7 +6,7 @@
 
 
 include { GATK4_HAPLOTYPECALLER } from '../../../modules/nf-core/gatk4/haplotypecaller/main'
-include { GATK4_GENOTYPEGVCFS } from '../../../modules/nf-core/gatk4/haplotypecaller/main'
+include { GATK4_GENOTYPEGVCFS } from '../../../modules/nf-core/gatk4/genotypegvcfs/main'
 
 workflow BAM_FP {
 
@@ -23,8 +23,6 @@ workflow BAM_FP {
 
     main:
 
-    
-    
     ch_bam
       .join(ch_bai)
       .combine(ch_intervals)
@@ -40,12 +38,29 @@ workflow BAM_FP {
         ch_dict,
         ch_db_snp,
         ch_db_snp_tbi
-
-
     )
-    //GATK4_GENOTYPEGVCFS()
+
+    GATK4_HAPLOTYPECALLER.out.vcf
+      .join(GATK4_HAPLOTYPECALLER.out.tbi)
+      .combine(ch_intervals)
+      .map{meta, vcf, tbi, meta2, intervals ->
+        return tuple([meta, vcf, tbi, intervals, [] ])
+      }
+      .set{ ch_vcf_tbi_intervals }
+
+
+    GATK4_GENOTYPEGVCFS(
+      ch_vcf_tbi_intervals,
+      ch_ref,
+      ch_ref_index,
+      ch_dict,
+      ch_db_snp,
+      ch_db_snp_tbi
+    )
 
     emit:
-    fp         = GATK4_HAPLOTYPECALLER.out.vcf           // channel: [ val(meta), [vcf?] ]
+    fp_vcf         = GATK4_GENOTYPEGVCFS.out.vcf           // channel: [ val(meta), vcf.gz ]
+    fp_vcf_tbi    = GATK4_GENOTYPEGVCFS.out.tbi           // Channel: [ val(meta), vcf.gz.tbi ]
+    
 
 }
