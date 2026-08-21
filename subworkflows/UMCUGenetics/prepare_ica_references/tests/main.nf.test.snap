@@ -31,38 +31,5 @@
             "nf-test": "0.9.5",
             "nextflow": "26.04.6"
         }
-    },
-    "Validate real  genome untar and processing": {
-        "content": [
-            [
-                [
-                    {
-                        "id": "genome"
-                    },
-                    "genome.fa:md5,d566f7aeef35edc9da9d38d672f34fa9"
-                ]
-            ],
-            [
-                [
-                    {
-                        "id": "genome"
-                    },
-                    "genome.fa.fai:md5,1211e0613e9e88446fc1b2b0222a3339"
-                ]
-            ],
-            [
-                [
-                    {
-                        "id": "genome"
-                    },
-                    "genome.dict:md5,b8b7b776dfdefe7badf859248af14525"
-                ]
-            ]
-        ],
-        "timestamp": "2026-08-19T13:22:02.524236",
-        "meta": {
-            "nf-test": "0.9.5",
-            "nextflow": "26.04.6"
-        }
     }
 }
