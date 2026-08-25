@@ -9,13 +9,12 @@ keywords:
   - intervals
   - fingerprint
   - vcf
+  - gatk4
 components:
   - gatk4/haplotypecaller:
       git_remote: https://github.com/nf-core/modules.git
-      branch: master
   - gatk4/genotypegvcfs:
       git_remote: https://github.com/nf-core/modules.git
-      branch: master
 input:
   - ch_bam:
       type: file
