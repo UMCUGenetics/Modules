@@ -69,7 +69,7 @@ nextflow_workflow {
             ]).first()
                 input[7] = channel.of([
                     [id: 'ancestry'],
-                    file( params.subworkflows_umcu_testdata_base_path + "bam_prs/test_ref.vcf.gz", checkIfExists: true)
+                    file( params.subworkflows_umcu_testdata_base_path + "bam_prs/test_ref.vcf.gz.tbi", checkIfExists: true)
             ]).first()
                 input[8] = channel.of([
                     [id: 'ancestry'],
