@@ -1,7 +1,7 @@
 process DRAGENUTILS_FASTQLIST {
     label 'process_single'
 
-    container 'ghcr.io/umcugenetics/dragen-utils:sha-b1d12b9'
+    container 'ghcr.io/umcugenetics/dragen-utils:1.0.0'
 
     input:
     path fastq
