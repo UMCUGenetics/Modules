@@ -1,5 +1,7 @@
 process DRAGEN {
-    // No container image as dragen requires specific hardware (FPGA) to run.
+    // Dragen requires specific hardware (FPGA) to run.
+    // This process is therefore only executed on Illumina® BioInsight Platform Core / Illumina Connected Analytics (ICA) compute nodes with FPGA support.
+    // Test only contain a stub of the process, which can be executed on any compute node, but does not perform any actual processing.
     tag "${meta.id}"
     label 'process_fpga'
 
