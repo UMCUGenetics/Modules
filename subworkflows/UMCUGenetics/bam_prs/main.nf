@@ -8,8 +8,8 @@ include { VCF_PRS_SCORE            } from '../../../subworkflows/UMCUGenetics/vc
 include { PRS_INTERVALS            } from '../../../subworkflows/UMCUGenetics/prs_intervals/main'
 include { BAM_HAPLOTYPECALLER_NORM } from '../../../subworkflows/UMCUGenetics/bam_haplotypecaller_norm/main'
 
-include { PRSUTILS_SAMPLEQC                } from '../../../modules/UMCUGenetics/prsutils/sampleqc/main'
-include { PRSUTILS_MERGEPRSMQC            } from '../../../modules/UMCUGenetics/prsutils/mergeprsmqc/main'
+include { PRSUTILS_SAMPLEQC        } from '../../../modules/UMCUGenetics/prsutils/sampleqc/main'
+include { PRSUTILS_MERGEPRSMQC     } from '../../../modules/UMCUGenetics/prsutils/mergeprsmqc/main'
 
 /*
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -20,41 +20,22 @@ include { PRSUTILS_MERGEPRSMQC            } from '../../../modules/UMCUGenetics/
 workflow BAM_PRS {
 
     take:
-    ch_samplesheet  // channel: [ val(meta), path(samplesheet)]
+    ch_samplesheet        // channel: [ val(meta), path(bam), path(bai)]
+    ch_genome_fasta       // channel: [ val(meta), path(fasta)]
+    ch_genome_index       // channel: [ val(meta), path(fai)]
+    ch_genome_dict        // channel: [ val(meta), path(dict)]
+    ch_dbsnp              // channel: [ val(meta), path(vcf)]
+    ch_dbsnp_index        // channel: [ val(meta), path(tbi)]
+    ch_ancestry_ref_vcf   // channel: [ val(meta), path(vcf)]
+    ch_ancestry_ref_index // channel: [ val(meta), path(tbi)]
+    ch_ancestry_meta      // channel: [ val(meta), path(psam)]
+    ch_prs_models         // channel: [ val(meta), path(csv)]
+    assembly_version      // val(version)
+
 
     main:
 
-    ch_genome_fasta = Channel.fromPath("${params.genome_fasta}")
-        .map{ file -> [file.getSimpleName(), file] }
-        .collect()
-
-    ch_genome_index = Channel.fromPath("${params.genome_fasta}.fai")
-        .map{ file -> [file.getSimpleName(), file] }
-        .collect()
-
-    ch_genome_dict = Channel.fromPath("${params.genome_dict}")
-        .map{ file -> [file.getSimpleName(), file] }
-        .collect()
-
-    ch_dbsnp = Channel.fromPath("${params.dbsnp}")
-		.map { file -> [['id': file.getSimpleName()], file] }
-		.collect()
-
-    ch_dbsnp_index = Channel.fromPath("${params.dbsnp}.tbi")
-		.map { file -> [['id': file.getSimpleName()], file] }
-		.collect()
-
-
-    ch_PRS_model = Channel.fromPath(params.prs_models)
-        .splitCsv(header: true)
-        .map { row ->
-            def meta = [id: row.modelID, mu: row.mu, sd: row.sd, alpha: row.alpha]
-            [meta, file("${projectDir}/assets/models/${row.path}")]
-        }
-
-
-
-    PRS_INTERVALS(ch_PRS_model, params.assembly_version)
+    PRS_INTERVALS(ch_prs_models, assembly_version)
 
     BAM_HAPLOTYPECALLER_NORM(
         ch_samplesheet,
@@ -73,17 +54,6 @@ workflow BAM_PRS {
     )
 
 
-
-    ch_ref_vcf = Channel.of([
-        file("${params.ancestry_db}", checkIfExists: true),
-        file("${params.ancestry_db}.tbi", checkIfExists: true)
-    ])
-        .map { vcf, tbi -> [ [id: vcf.getSimpleName()], vcf, tbi ] }
-        .first()
-    ch_ref_meta = Channel.fromPath("${params.ancestry_db_meta}")
-        .map {meta -> [[id: meta.getSimpleName()], meta]}
-        .first()
-
     ch_ancestry_vcf = BAM_HAPLOTYPECALLER_NORM.out.vcf
         .map { meta, vcf -> [meta.sample_id, vcf] }
         .groupTuple()
@@ -97,8 +67,8 @@ workflow BAM_PRS {
 
     VCF_ANCESTRY(
         ch_ancestry_vcf.join(ch_ancestry_tbi),
-        ch_ref_vcf,
-        ch_ref_meta,
+        ch_ancestry_ref_vcf.join(ch_ancestry_ref_index),
+        ch_ancestry_meta,
         ch_genome_fasta,
         ch_genome_index
     )

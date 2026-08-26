@@ -40,6 +40,46 @@ nextflow_workflow {
                     [id: 'samplesheet'],
                     file( params.subworkflows_umcu_testdata_base_path + "bam_prs/samplesheet.csv", checkIfExists: true)
                 ])
+                input[1] = channel.of([
+                [id: 'genome'],
+                    file( params.modules_testdata_base_path + "genomics/homo_sapiens/genome/genome.fasta", checkIfExists: true)
+
+            ]).first()
+                input[2] = channel.of([
+                    [id: 'genome'],
+                    file( params.modules_testdata_base_path + "genomics/homo_sapiens/genome/genome.fasta.fai", checkIfExists: true)
+
+            ]).first()
+                input[3] = channel.of([
+                    [id: 'genome'],
+                    file( params.modules_testdata_base_path + "genomics/homo_sapiens/genome/genome.dict", checkIfExists: true)
+
+            ]).first()
+                input[4] = channel.of([
+                    [id: 'dbSNP'],
+                    file( "https://raw.githubusercontent.com/UMCUGenetics/DxNextflowTestData/main/DxNextflowPRS/dbsnp_v146_grch38_bcac_313.vcf.gz", checkIfExists: true)
+            ]).first()
+                input[5] = channel.of([
+                    [id: 'dbSNP'],
+                    file( "https://raw.githubusercontent.com/UMCUGenetics/DxNextflowTestData/main/DxNextflowPRS/dbsnp_v146_grch38_bcac_313.vcf.gz.tbi", checkIfExists: true)
+            ]).first()
+                input[6] = channel.of([
+                    [id: 'ancestry'],
+                    file( params.subworkflows_umcu_testdata_base_path + "bam_prs/test_ref.vcf.gz", checkIfExists: true)
+            ]).first()
+                input[7] = channel.of([
+                    [id: 'ancestry'],
+                    file( params.subworkflows_umcu_testdata_base_path + "bam_prs/test_ref.vcf.gz.tbi", checkIfExists: true)
+            ]).first()
+                input[8] = channel.of([
+                    [id: 'ancestry'],
+                    file( params.subworkflows_umcu_testdata_base_path + "bam_prs/test_ref_meta.psam", checkIfExists: true)
+            ]).first()
+                input[9] = channel.of([
+                    [id: 'model'],
+                    file( params.subworkflows_umcu_testdata_base_path + "bam_prs/model_sheet.csv", checkIfExists: true)
+            ])
+                input[10] = channel.value("GRCh38")
                 """
             }
         }
