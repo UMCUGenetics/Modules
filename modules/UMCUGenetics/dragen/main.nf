@@ -17,8 +17,7 @@ process DRAGEN {
     output:
     tuple val(meta), path("*"), emit: output
     tuple val(meta), path('*.csv'), emit: csv
-    tuple val(meta), path("${prefix}.bam"), emit: bam
-    tuple val(meta), path("${prefix}.bam.bai"), emit: bai
+    tuple val(meta), path("${prefix}.bam"), path("${prefix}.bam.bai"), emit: bam_bai
     tuple val(meta), path("${prefix}.wgs_coverage_metrics.csv"), optional: true, emit: wgs_coverage_metrics
     tuple val(meta), path("${prefix}.cnv_metrics.csv"), optional: true, emit: cnv_metrics
     tuple val(meta), path("${prefix}.mapping_metrics.csv"), optional: true, emit: mapping_metrics
