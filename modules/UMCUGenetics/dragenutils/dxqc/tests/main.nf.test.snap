@@ -1,0 +1,52 @@
+{
+    "HG002 - srWGS QC csv files": {
+        "content": [
+            {
+                "0": [
+                    [
+                        {
+                            "id": "HG002"
+                        },
+                        "HG002.dragen_dx_qc.csv:md5,a6e8fd73836dd3b75ef50f082817cd24"
+                    ]
+                ],
+                "1": [
+                    [
+                        "DRAGENUTILS_DXQC",
+                        "dragenutils",
+                        "1.0.0"
+                    ]
+                ],
+                "csv": [
+                    [
+                        {
+                            "id": "HG002"
+                        },
+                        "HG002.dragen_dx_qc.csv:md5,a6e8fd73836dd3b75ef50f082817cd24"
+                    ]
+                ],
+                "versions_dragenutils": [
+                    [
+                        "DRAGENUTILS_DXQC",
+                        "dragenutils",
+                        "1.0.0"
+                    ]
+                ]
+            },
+            {
+                "versions_dragenutils": [
+                    [
+                        "DRAGENUTILS_DXQC",
+                        "dragenutils",
+                        "1.0.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-08-20T15:11:59.763461",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "25.10.2"
+        }
+    }
+}

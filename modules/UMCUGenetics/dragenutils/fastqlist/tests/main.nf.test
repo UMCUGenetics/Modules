@@ -1,0 +1,54 @@
+nextflow_process {
+
+    name "Test Process DRAGENUTILS_FASTQLIST"
+    script "../main.nf"
+    process "DRAGENUTILS_FASTQLIST"
+
+    tag "modules"
+    tag "modules_UMCUGenetics"
+    tag "dragenutils"
+    tag "dragenutils/fastqlist"
+
+    test("HG002 - fastq") {
+        when {
+            process {
+                """                
+                input[0] = [
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-1_23KCWCLT3_S8_L004_R1_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-1_23KCWCLT3_S8_L004_R2_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-1_23KCWCLT3_S8_L005_R1_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-1_23KCWCLT3_S8_L005_R2_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-1_23KCWCLT3_S8_L006_R1_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-1_23KCWCLT3_S8_L006_R2_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-1_23KCWCLT3_S8_L007_R1_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-1_23KCWCLT3_S8_L007_R2_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-1_23KCWCLT3_S8_L008_R1_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-1_23KCWCLT3_S8_L008_R2_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-2_23KCWCLT3_S14_L004_R1_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-2_23KCWCLT3_S14_L004_R2_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-2_23KCWCLT3_S14_L005_R1_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-2_23KCWCLT3_S14_L005_R2_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-2_23KCWCLT3_S14_L006_R1_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-2_23KCWCLT3_S14_L006_R2_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-2_23KCWCLT3_S14_L007_R1_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-2_23KCWCLT3_S14_L007_R2_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-2_23KCWCLT3_S14_L008_R1_001.fastq.gz", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/fastq/HG002-2_23KCWCLT3_S14_L008_R2_001.fastq.gz", checkIfExists: true)
+                ]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assertAll(
+                { assert snapshot(
+                    process.out,
+                    process.out.findAll { key, val -> key.startsWith('versions') }
+                ).match() }
+            )
+        }
+
+    }
+
+}

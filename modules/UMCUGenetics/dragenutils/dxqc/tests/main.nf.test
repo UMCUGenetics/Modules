@@ -1,0 +1,40 @@
+nextflow_process {
+
+    name "Test Process DRAGENUTILS_DXQC"
+    script "../main.nf"
+    process "DRAGENUTILS_DXQC"
+
+    tag "modules"
+    tag "modules_UMCUGenetics"
+    tag "dragenutils"
+    tag "dragenutils/dxqc"
+
+    test("HG002 - srWGS QC csv files") {
+        when {
+            process {
+                """                
+                input[0] = [
+                    [ id:'HG002' ], 
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/qc/HG002.wgs_coverage_metrics.csv", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/qc/HG002.cnv_metrics.csv", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/qc/HG002.mapping_metrics.csv", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/qc/HG002.ploidy_estimation_metrics.csv", checkIfExists: true),
+                    file(params.modules_umcu_testdata_base_path + "dragen_utils/qc/HG002.gvcf_metrics.csv", checkIfExists: true),
+                ]
+                """
+            }
+        }
+
+        then {
+            assert process.success
+            assertAll(
+                { assert snapshot(
+                    process.out,
+                    process.out.findAll { key, val -> key.startsWith('versions') }
+                ).match() }
+            )
+        }
+
+    }
+
+}

@@ -2,3 +2,4 @@ org_path: UMCUGenetics
 repository_type: modules
 container-registry:
   - ghcr.io
+  - 079623148045.dkr.ecr.eu-central-1.amazonaws.com

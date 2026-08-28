@@ -1,0 +1,42 @@
+{
+    "HG002 - fastq": {
+        "content": [
+            {
+                "0": [
+                    "fastq_list.csv:md5,2d99abf6c85e82473ee0a7e3b161a01a"
+                ],
+                "1": [
+                    [
+                        "DRAGENUTILS_FASTQLIST",
+                        "dragenutils",
+                        "1.0.0"
+                    ]
+                ],
+                "csv": [
+                    "fastq_list.csv:md5,2d99abf6c85e82473ee0a7e3b161a01a"
+                ],
+                "versions_dragenutils": [
+                    [
+                        "DRAGENUTILS_FASTQLIST",
+                        "dragenutils",
+                        "1.0.0"
+                    ]
+                ]
+            },
+            {
+                "versions_dragenutils": [
+                    [
+                        "DRAGENUTILS_FASTQLIST",
+                        "dragenutils",
+                        "1.0.0"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-08-14T16:18:28.099028",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "25.10.2"
+        }
+    }
+}
