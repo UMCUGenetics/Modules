@@ -1,4 +1,7 @@
 process DRAGEN {
+    // Dragen requires specific hardware (FPGA) to run.
+    // This process is therefore only executed on Illumina® BioInsight Platform Core / Illumina Connected Analytics (ICA) compute nodes with FPGA support.
+    // Test only contain a stub of the process, which can be executed on any compute node, but does not perform any actual processing.
     tag "${meta.id}"
     label 'process_fpga'
 
@@ -6,7 +9,6 @@ process DRAGEN {
     container '079623148045.dkr.ecr.eu-central-1.amazonaws.com/cp-prod/f1b7ad6a-11ac-4bc1-b705-b275ff2887ad:latest'
 
     input:
-
     tuple val(meta), path(r1_fastq), path(r2_fastq)
     path fastq_list
     tuple val(meta2), path(ref_dir)
