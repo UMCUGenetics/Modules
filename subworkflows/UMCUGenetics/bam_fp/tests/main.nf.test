@@ -45,11 +45,11 @@ nextflow_workflow {
                     file(params.modules_testdata_base_path + "genomics/homo_sapiens/illumina/bam/test.paired_end.sorted.bam.bai",
                         checkIfExists: true)
                 ])
-                input[2] = Channel.of([[id: "genome_fa"],
+                input[2] = Channel.of([[id: "genome"],
                     file(params.modules_testdata_base_path + "genomics/homo_sapiens/genome/genome.fasta", checkIfExists: true)]).first()
-                input[3] = Channel.of([[id: "genome_fai"],
+                input[3] = Channel.of([[id: "genome"],
                     file(params.modules_testdata_base_path + "genomics/homo_sapiens/genome/genome.fasta.fai", checkIfExists: true)]).first()
-                input[4] = Channel.of([[id: "genome_dict"],
+                input[4] = Channel.of([[id: "genome"],
                     file(params.modules_testdata_base_path + "genomics/homo_sapiens/genome/genome.dict", checkIfExists: true)]).first()
                 input[5] = Channel.of([[id: "intervals"],
                     file(params.subworkflows_umcu_testdata_base_path + "bam_fp/bam_fp_test.interval_list", checkIfExists: true)])
