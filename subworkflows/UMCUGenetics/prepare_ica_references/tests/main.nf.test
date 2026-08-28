@@ -24,12 +24,13 @@ nextflow_workflow {
     }
 
     test("Validate genome untar and processing") {
+        options "-stub"
         when{
             workflow{
                 """
                 input[0] = channel.of([
                 [id: 'genome'],
-                    file(params.subworkflows_umcu_testdata_base_path + "prepare_ica_references/genome.tar", checkIfExists: true)
+                    file(params.subworkflows_umcu_testdata_base_path + "prepare_ica_references/genome.tar.gz", checkIfExists: true)
                 ])
                 """
             }

@@ -15,7 +15,7 @@ nextflow_process {
                 """
                 input[0] = channel.of([
                     [id: 'genome'],
-                    file(params.subworkflows_umcu_testdata_base_path + "prepare_ica_references/genome.tar", checkIfExists: true)
+                    file(params.subworkflows_umcu_testdata_base_path + "prepare_ica_references/genome.tar.gz", checkIfExists: true)
                 ])
                 """
             }
@@ -23,6 +23,9 @@ nextflow_process {
         then{
             assertAll(
                 { assert process.success },
+                { assert path(process.out.dragen_ref[0][1]).exists() },
+                { assert path(process.out.fasta[0][1]).exists() },
+                { assert path(process.out.gtf[0][1]).exists() },
                 { assert snapshot(
                     process.out.findAll { key, val -> key.startsWith('versions') }
                 ).match() }
