@@ -2,7 +2,7 @@ nextflow_workflow {
 
     name "Test Subworkflow BAM_FP"
     script "../main.nf"
-    config "./nextflow.config"
+    config "../nextflow.config"
     workflow "BAM_FP"
 
     tag "subworkflows"
@@ -64,7 +64,11 @@ nextflow_workflow {
         }
         then{
             assertAll(
-                { assert workflow.success }
+                { assert workflow.success },
+                { assert snapshot(
+                    workflow.out.fp_vcf,
+                    workflow.out.fp_vcf_tbi,
+                 ).match() }
             )
         }
         cleanup {
