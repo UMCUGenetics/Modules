@@ -6,6 +6,7 @@ nextflow_process {
 
     tag "modules"
     tag "modules_UMCUGenetics"
+    tag "subworkflows/prepare_ica_references"
     tag "dragen"
 
 

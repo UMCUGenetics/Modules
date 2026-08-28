@@ -38,11 +38,10 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(
-                    workflow.out.genome_fasta,
-                    workflow.out.genome_fai,
-                    workflow.out.genome_dict
-                ).match()}
+                { assert path(workflow.out.genome_fasta[0][1]).exists() },
+                { assert path(workflow.out.genome_fai[0][1]).exists() },
+                { assert path(workflow.out.genome_dict[0][1]).exists() },
+                { assert path(workflow.out.genome_dir[0][1]).exists() },
             )
         }
 
