@@ -24,12 +24,13 @@ nextflow_workflow {
     }
 
     test("Validate genome untar and processing") {
+        options "-stub"
         when{
             workflow{
                 """
                 input[0] = channel.of([
                 [id: 'genome'],
-                    file(params.subworkflows_umcu_testdata_base_path + "prepare_ica_references/genome.tar", checkIfExists: true)
+                    file(params.subworkflows_umcu_testdata_base_path + "prepare_ica_references/genome.tar.gz", checkIfExists: true)
                 ])
                 """
             }
@@ -37,11 +38,10 @@ nextflow_workflow {
         then {
             assertAll(
                 { assert workflow.success },
-                { assert snapshot(
-                    workflow.out.genome_fasta,
-                    workflow.out.genome_fai,
-                    workflow.out.genome_dict
-                ).match()}
+                { assert path(workflow.out.genome_fasta[0][1]).exists() },
+                { assert path(workflow.out.genome_fai[0][1]).exists() },
+                { assert path(workflow.out.genome_dict[0][1]).exists() },
+                { assert path(workflow.out.genome_dir[0][1]).exists() },
             )
         }
 

@@ -11,23 +11,18 @@ workflow PREPARE_ICA_REFERENCES {
 
     UNTAR_GENOME(genome_tar)
 
-    genome_fasta = UNTAR_GENOME.out.untar
-        .map{ meta, dir -> [meta, file("${dir}/genome.fa",
-                    checkIfExists: !workflow.stubRun)
-            ]}
-
     SAMTOOLS_FAIDX(
-        genome_fasta.map {meta, fasta -> [meta, fasta, []]},
+        UNTAR_GENOME.out.fasta.map {meta, fasta -> [meta, fasta, []]},
         false
     )
 
-    GATK4_CREATESEQUENCEDICTIONARY(genome_fasta)
+    GATK4_CREATESEQUENCEDICTIONARY(UNTAR_GENOME.out.fasta)
 
 
     emit:
-    genome_fasta = genome_fasta
+    genome_fasta = UNTAR_GENOME.out.fasta
     genome_fai   = SAMTOOLS_FAIDX.out.fai
     genome_dict  = GATK4_CREATESEQUENCEDICTIONARY.out.dict
-    genome_dir   = UNTAR_GENOME.out.untar
+    genome_dir   = UNTAR_GENOME.out.dragen_ref
 
 }

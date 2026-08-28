@@ -1,5 +1,5 @@
 process UNTAR_GENOME {
-    tag "${archive}"
+    tag "${meta.id}"
     label 'process_single'
 
     container "${workflow.containerEngine in ['singularity', 'apptainer'] && !task.ext.singularity_pull_docker_container
@@ -7,18 +7,40 @@ process UNTAR_GENOME {
         : 'community.wave.seqera.io/library/coreutils_grep_gzip_lbzip2_pruned:838ba80435a629f8'}"
 
     input:
-    tuple val(meta), path(archive)
+    tuple val(meta), path(genome_tar)
 
     output:
-    tuple val(meta), path('genome'), emit: untar
+    tuple val(meta), path('dragen_ref'),   emit: dragen_ref
+    tuple val(meta), path('genome.fa'),    emit: fasta
+    tuple val(meta), path("genes.gtf.gz"), emit: gtf
     tuple val("${task.process}"), val('UNTAR'), eval('echo 1.0.0'), emit: versions_untar_genome, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
 
     script:
+    def hashtable_version = params.dragen_hashtable_version ?: ''
     """
-    mkdir genome
-    tar -xavf ${archive} -C genome
+    tar -xzf ${genome_tar}
+    mapfile -t hts < <(find . -name hash_table.cfg -printf '%h\\n' | grep -E '/[0-9]+\$' | sort -V)
+
+    if [ \${#hts[@]} -eq 0 ]; then
+        echo "ERROR: no DRAGEN hashtable (hash_table.cfg) found in ${genome_tar}" >&2
+        exit 1
+    fi
+
+
+    if [ -n "${hashtable_version}" ]; then
+        ref_dir=\$(printf '%s\\n' "\${hts[@]}" | grep -E "/${hashtable_version}\$") || {
+            echo "ERROR: hashtable v${hashtable_version} not found. Available: \${hts[*]}" >&2
+            exit 1
+        }
+    else
+        ref_dir=\${hts[-1]}          # Highest version
+    fi
+
+    echo "Using DRAGEN ref-dir: \$ref_dir" >&2
+    ln -s "\$(realpath \$ref_dir)" dragen_ref
+
     """
 }
