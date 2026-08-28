@@ -2,7 +2,7 @@ nextflow_workflow {
 
     name "Test Subworkflow BAM_FP"
     script "../main.nf"
-    config "../nextflow.config"
+    config "./nextflow.config"
     workflow "BAM_FP"
 
     tag "subworkflows"
