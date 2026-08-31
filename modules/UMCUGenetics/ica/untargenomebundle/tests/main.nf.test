@@ -1,13 +1,14 @@
 nextflow_process {
-    name "Test ICA_UNTAR_GENOME_BUNDLE module"
+    name "Test ICA_UNTARGENOMEBUNDLE module"
     script "../main.nf"
-    process "ICA_UNTAR_GENOME_BUNDLE"
+    process "ICA_UNTARGENOMEBUNDLE"
 
     tag "modules"
     tag "modules_UMCUGenetics"
-    tag "modules/ica_untar_genome_bundle"
-    tag "ica/untar_genome_bundle"
-    tag "untar_genome_bundle"
+    tag "modules/ica_untargenomebundle"
+    tag "ica/untargenomebundle"
+    tag "untargenomebundle"
+    tag "ica"
 
     test("Validate ica untar genome bundle") {
         when {

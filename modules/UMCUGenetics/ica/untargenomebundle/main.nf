@@ -1,4 +1,4 @@
-process ICA_UNTAR_GENOME_BUNDLE {
+process ICA_UNTARGENOMEBUNDLE {
     tag "${meta.id}"
     label 'process_single'
 
@@ -13,7 +13,7 @@ process ICA_UNTAR_GENOME_BUNDLE {
     tuple val(meta), path('dragen_ref'),   emit: dragen_ref
     tuple val(meta), path('genome.fa'),    emit: fasta
     tuple val(meta), path("genes.gtf.gz"), emit: gtf
-    tuple val("${task.process}"), val('tar'), eval('tar --version | sed -n "s/.*tar)//p"'), emit: versions_ica_untar_genome_bundle, topic: versions
+    tuple val("${task.process}"), val('tar'), eval('tar --version | sed -n "s/.*tar)//p" | tr -d " "'), emit: versions_ica_untargenomebundle, topic: versions
 
     when:
     task.ext.when == null || task.ext.when
