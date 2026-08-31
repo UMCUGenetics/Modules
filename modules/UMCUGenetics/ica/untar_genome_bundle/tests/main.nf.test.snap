@@ -1,0 +1,20 @@
+{
+    "Validate ica untar genome bundle": {
+        "content": [
+            {
+                "versions_ica_untar_genome_bundle": [
+                    [
+                        "ICA_UNTAR_GENOME_BUNDLE",
+                        "tar",
+                        " 1.34"
+                    ]
+                ]
+            }
+        ],
+        "timestamp": "2026-08-31T11:14:25.259943",
+        "meta": {
+            "nf-test": "0.9.5",
+            "nextflow": "26.04.6"
+        }
+    }
+}
