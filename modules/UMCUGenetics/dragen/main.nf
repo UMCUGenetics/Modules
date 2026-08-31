@@ -9,15 +9,15 @@ process DRAGEN {
     container '079623148045.dkr.ecr.eu-central-1.amazonaws.com/cp-prod/f1b7ad6a-11ac-4bc1-b705-b275ff2887ad:latest'
 
     input:
-    // TODO: Move ref_tar unpacking to a separate process to avoid unpacking the reference for every sample? -> added in prs branch
     tuple val(meta), path(r1_fastq), path(r2_fastq)
     path fastq_list
-    path ref_tar
+    tuple val(meta2), path(ref_dir)
     path repeat_genotype_specs
 
     output:
     tuple val(meta), path("*"), emit: output
     tuple val(meta), path('*.csv'), emit: csv
+    tuple val(meta), path("${prefix}.bam"), path("${prefix}.bam.bai"), emit: bam_bai
     tuple val(meta), path("${prefix}.wgs_coverage_metrics.csv"), optional: true, emit: wgs_coverage_metrics
     tuple val(meta), path("${prefix}.cnv_metrics.csv"), optional: true, emit: cnv_metrics
     tuple val(meta), path("${prefix}.mapping_metrics.csv"), optional: true, emit: mapping_metrics
@@ -31,24 +31,18 @@ process DRAGEN {
     script:
     prefix = task.ext.prefix ?: "${meta.id}"
     def args = task.ext.args ?: ''
-
-    if (repeat_genotype_specs) {
-        args = args + " --repeat-genotype-enable true --repeat-genotype-specs " + repeat_genotype_specs
-    }
-
+    def repeat_specs = repeat_genotype_specs ? "--repeat-genotype-enable true --repeat-genotype-specs ${repeat_genotype_specs}" : ""
     """
-    mkdir -p /scratch/reference
-    tar -C /scratch/reference -xf ${ref_tar}
-
     /opt/edico/bin/dragen --partial-reconfig HMM --ignore-version-check true
 
     /opt/edico/bin/dragen --lic-instance-id-location /opt/instance-identity \\
-        --ref-dir /scratch/reference/DRAGEN/9 \\
+        --ref-dir ${ref_dir} \\
         --fastq-list ${fastq_list} \\
         --fastq-list-sample-id ${meta.id} \\
         --output-file-prefix ${prefix} \\
         --output-directory ./ \\
         --intermediate-results-dir /scratch \\
+        ${repeat_specs} \\
         ${args}
     """
 
@@ -59,6 +53,7 @@ process DRAGEN {
     echo ${args}
 
     touch ${prefix}.bam
+    touch ${prefix}.bam.bai
     touch ${prefix}.wgs_coverage_metrics.csv
     touch ${prefix}.cnv_metrics.csv
     touch ${prefix}.mapping_metrics.csv

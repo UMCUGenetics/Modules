@@ -6,7 +6,33 @@ nextflow_process {
 
     tag "modules"
     tag "modules_UMCUGenetics"
+    tag "subworkflows/prepare_ica_references"
     tag "dragen"
+
+
+    setup{
+        nfcoreInitialise("${launchDir}/library/")
+        nfcoreInstall(
+            "${launchDir}/library/",
+            [
+                "samtools/faidx",
+                "gatk4/createsequencedictionary"
+            ]
+        )
+        nfcoreLink("${launchDir}/library/", "${baseDir}/modules/")
+
+        run("PREPARE_ICA_REFERENCES") {
+                script "../../../../subworkflows/UMCUGenetics/prepare_ica_references/main.nf"
+                workflow {
+                    """
+                    input[0] = channel.of([
+                        [id: 'genome'],
+                        file(params.subworkflows_umcu_testdata_base_path + "prepare_ica_references/genome.tar.gz", checkIfExists: true)
+                    ])
+                    """
+                }
+            }
+    }
 
     test("dragen - stub") {
         options '-stub'
@@ -19,7 +45,7 @@ nextflow_process {
                     []
                 ]
                 input[1] = []
-                input[2] = []
+                input[2] = PREPARE_ICA_REFERENCES.out.genome_dir
                 input[3] = []
                 """
             }
@@ -32,6 +58,9 @@ nextflow_process {
                     process.out.findAll { key, val -> key.startsWith('versions') }
                 ).match() }
             )
+        }
+        cleanup {
+            nfcoreUnlink("${launchDir}/library/", "${baseDir}/modules/")
         }
     }
 }

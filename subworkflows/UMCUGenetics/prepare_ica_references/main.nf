@@ -1,5 +1,5 @@
 
-include { UNTAR_GENOME                   } from '../../../modules/UMCUGenetics/untar/genome/main'
+include { ICA_UNTARGENOMEBUNDLE        } from '../../../modules/UMCUGenetics/ica/untargenomebundle/main'
 include { SAMTOOLS_FAIDX                 } from '../../../modules/nf-core/samtools/faidx/main'
 include { GATK4_CREATESEQUENCEDICTIONARY } from '../../../modules/nf-core/gatk4/createsequencedictionary/main'
 
@@ -9,25 +9,20 @@ workflow PREPARE_ICA_REFERENCES {
 
     main:
 
-    UNTAR_GENOME(genome_tar)
-
-    genome_fasta = UNTAR_GENOME.out.untar
-        .map{ meta, dir -> [meta, file("${dir}/genome.fa",
-                    checkIfExists: !workflow.stubRun)
-            ]}
+    ICA_UNTARGENOMEBUNDLE(genome_tar)
 
     SAMTOOLS_FAIDX(
-        genome_fasta.map {meta, fasta -> [meta, fasta, []]},
+        ICA_UNTARGENOMEBUNDLE.out.fasta.map {meta, fasta -> [meta, fasta, []]},
         false
     )
 
-    GATK4_CREATESEQUENCEDICTIONARY(genome_fasta)
+    GATK4_CREATESEQUENCEDICTIONARY(ICA_UNTARGENOMEBUNDLE.out.fasta)
 
 
     emit:
-    genome_fasta = genome_fasta
+    genome_fasta = ICA_UNTARGENOMEBUNDLE.out.fasta
     genome_fai   = SAMTOOLS_FAIDX.out.fai
     genome_dict  = GATK4_CREATESEQUENCEDICTIONARY.out.dict
-    genome_dir   = UNTAR_GENOME.out.untar
+    genome_dir   = ICA_UNTARGENOMEBUNDLE.out.dragen_ref
 
 }
